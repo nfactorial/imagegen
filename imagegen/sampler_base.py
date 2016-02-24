@@ -28,4 +28,4 @@ class SamplerBase:
         :return: Tuple containing the x,y floating point coordinates of the sample.
         """
         # We add 0.5 to the pixel position because we treat 0.5 as the pixels center
-        yield pos[0] + (0.5 * self.pixel_scale[0]), pos[1] + (0.5 * self.pixel_scale[1])
+        yield pos[0] + 0.5 * self.pixel_scale[0], pos[1] + 0.5 * self.pixel_scale[1]

@@ -23,4 +23,4 @@ class StochasticSampler(SamplerBase):
             for y_loop in range(self.y_samples):
                 x_jitter = random.random()
                 y_jitter = random.random()
-                yield pos[0] + (x_jitter * self.pixel_scale[0]), pos[1] + (y_jitter * self.pixel_scale[1])
+                yield pos[0] + x_jitter * self.pixel_scale[0], pos[1] + y_jitter * self.pixel_scale[1]

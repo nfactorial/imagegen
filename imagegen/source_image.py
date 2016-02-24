@@ -99,12 +99,20 @@ class ImageTask:
         :param info: Description of the current sample being computed.
         :return: The computed color value for the pixel being evaluated.
         """
-        if info.pos[0] < 0.5:
-            if info.pos[1] >= 0.5:
+        x = math.fmod(info.pos[0], 1.0)
+        y = math.fmod(info.pos[1], 1.0)
+        if x < 0.5:
+            if y >= 0.5:
                 return self.colorB
         else:
-            if info.pos[1] < 0.5:
+            if y < 0.5:
                 return self.colorB
+        # if info.pos[0] < 0.5:
+        #    if info.pos[1] >= 0.5:
+        #        return self.colorB
+        # else:
+        #    if info.pos[1] < 0.5:
+        #        return self.colorB
         return self.colorA
 
     def complex_checker(self, info):
@@ -113,8 +121,8 @@ class ImageTask:
         :param info:
         :return:
         """
-        bx = info.pos[0]
-        by = info.pos[1]
+        bx = math.fmod(info.pos[0], 1.0)
+        by = math.fmod(info.pos[1], 1.0)
         if bx < 0.5:
             if by >= 0.5:
                 return self.colorB
