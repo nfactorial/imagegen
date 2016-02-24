@@ -1,4 +1,6 @@
 import math
+from sampler_base import SamplerBase
+from color import Color
 from PIL import Image
 
 
@@ -25,8 +27,8 @@ class ImageBlock:
         self.size = size
 
     def next_pixel(self):
-        for x in range(self.size[0]):
-            for y in range(self.size[1]):
+        for y in range(self.size[1]):
+            for x in range(self.size[0]):
                 yield (self.pos[0] + x, self.pos[1] + y)
 
 
@@ -41,6 +43,7 @@ class ImageInfo:
         self.block = None
         self.pixel = (0, 0)
         self.pos = (0, 0)
+        self.pixel_scale = (1.0, 1.0)
 
 
 class SourceImage:
@@ -58,7 +61,7 @@ class SourceImage:
         self.image.save(path)
 
     def set_pixel(self, pos, color):
-        self.image.putpixel(pos, (int(color[0] * 255), int(color[1] * 255), int(color[2] * 255)))
+        self.image.putpixel(pos, (int(color.red * 255), int(color.green * 255), int(color.blue * 255)))
 
     def generate_blocks(self, block_size):
         """
@@ -78,8 +81,8 @@ class ImageTask:
         """
         Prepares the task for use by the application.
         """
-        self.colorA = (0.0, 0.0, 0.0)
-        self.colorB = (1.0, 1.0, 1.0)
+        self.colorA = Color(red=0.0, green=0.0, blue=0.0)
+        self.colorB = Color(red=1.0, green=1.0, blue=1.0)
         self.block = block
 
     def method(self, info):
@@ -92,7 +95,7 @@ class ImageTask:
         y = info.pos[1] - 0.5
         r = 0.2 + 0.1 * math.cos(math.atan2(y, x) * 10.0)
         d = smoothstep(r, r + 0.1, length(x, y))
-        return color[0] * d, color[1] * d, color[2] * d
+        return Color(red=color[0] * d, green=color[1] * d, blue=color[2] * d)
 
     def circle(self, info):
         x = info.pos[0] - 0.5
@@ -105,6 +108,11 @@ class ImageTask:
         if 0.3 < d < 0.35:
             return self.colorB
         return self.colorA
+
+    def sine_stripe(self, info):
+        t = info.pos[0] * math.pi * 2.0
+        v = 0.5 + math.sin(t * 8.0 + info.pos[1] * 12.4) * 0.5
+        return Color(red=v, green=v, blue=v)
 
     def checker(self, info):
         """
@@ -128,14 +136,21 @@ class ImageTask:
         :return:
         """
         info = ImageInfo(image)
+        # info.pixel_scale = (1.0 / image.size[0], 1.0 / image.size[1])
+        info.pixel_scale = (1.0, 1.0)
+
+        # TODO: The sampler will be specified in the definition file
+        sampler = SamplerBase(1, 1, info.pixel_scale)
+
         for pixel in self.block.next_pixel():
             info.pixel = pixel
-            # We add 0.5 to the pixel position, as we treat 0.5 as the pixels center
-            info.pos = ((pixel[0] + 0.5) / image.size[0], (pixel[1] + 0.5) / image.size[1])
-            # TODO: Apply supersampling here if desired
-            #image.set_pixel(pixel, self.method(info))
-            image.set_pixel(pixel, self.circle(info))
-            # image.set_pixel(pixel, self.checker(info))
+            clr = Color()
+            for sample in sampler.next_sample(pixel[0], pixel[1]):
+                info.pos = (sample[0]/image.size[0], sample[1]/image.size[1])
+                # clr += self.method(info)
+                # clr += self.checker(info)
+                clr += self.circle(info)
+            image.set_pixel(pixel, clr / len(sampler))
 
 
 if __name__ == "__main__":

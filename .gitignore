@@ -5,5 +5,8 @@
 # Ignore compiled files.
 *.pyc
 
+# Local tests generate output.png, no need to put that into version control
+output.png
+
 # Build directory is not under version control
 build
