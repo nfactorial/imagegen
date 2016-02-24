@@ -14,13 +14,12 @@ SAMPLING
 ========
 By default, imagegen performs a single sample per-pixel in the node being evaluated. For many operations this
 is sufficient and the resulting image can be used as is. However if the generated image contains quickly
-changing data the resulting image can appear 'aliased' with clearly missing data. As an example, here are
-two example images generated with imagegen, the first uses the cirle generator node whilst the second
-contains vertical stripes of quickly changing data:
+changing data the resulting image can appear 'aliased' with clearly missing data. As an example, take this
+generated image of a circle that was created using imagegen:
 
 ![Aliased Circle](/images/aliased_circle.png)
 
-As can be seen in this image, the rounded area of the circle does not appear smooth to the eye, this
+As can be seen in this image, the curved boundaries of the circle do not appear smooth to the eye, this
 is caused by the sampling of each pixel missing data in-between the samples. To combat these artifacts
 imagegen supports super-sampling options on each node.
 
@@ -28,11 +27,11 @@ Currently only stratified sampling has been provided, whilst useful it is not th
 nor is it the best for all situations. The list of available sampling methods will be increased in the
 future.
 
-If we enable stratified sampling and re-generate the aliased image above, imagegen results in the following
+If we enable stratified sampling and re-generate the aliased image above, imagegen outputs the following
 result:
 
 ![SuperSampled Circle](/images/ss_circle.png)
 
-As we can see, the curved bounds on this image looks much smoother and more pleasing to the eye. Care should
-be taken when using stratified sampling, as enabling the feature increases the number of samples evaluated
-for each pixel and thus also increases the length of time taken to generate the image.
+As we can see, the curved boundaries on this image look much smoother and more pleasing to the eye. Care should
+be taken when enabling stratified sampling, as the feature increases the number of samples evaluated
+for each pixel in the iage and thus also increases the length of time taken to generate the output.
