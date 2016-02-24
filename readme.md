@@ -41,5 +41,5 @@ for each pixel in the image and thus also increases the length of time taken to 
 OUTPUT
 ======
 Imagegen is capable of outputting multiple images from a single graph, the image results are defined by the
-output node. This allows a generated image to compute various attributes of a particle image, such as diffuse,
+output node. This allows a generated image to compute various attributes of a particular image, such as diffuse,
 specular and normal maps. Making it suitable for offline generation of textures for use within a 3D application.
