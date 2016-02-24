@@ -1,0 +1,6 @@
+# No need to store IDE settings
+.idea
+.DS_Store
+
+# Build directory is not under version control
+build
