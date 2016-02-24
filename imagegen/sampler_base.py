@@ -21,12 +21,11 @@ class SamplerBase:
     def __len__(self):
         return 1
 
-    def next_sample(self, x, y):
+    def next_sample(self, pos):
         """
         Generates a list of samples for the given pixel.
-        :param x: Position of the pixel along the horizontal axis.
-        :param y: Position of the pixel along the vertical axis.
+        :param pos: Tuple containing the x,y coordinates of the pixel being evaluated.
         :return: Tuple containing the x,y floating point coordinates of the sample.
         """
-        # We add 0.5 to the pixel position, as we treat 0.5 as the pixels center
-        yield x + (0.5 * self.pixel_scale[0]), y + (0.5 * self.pixel_scale[1])
+        # We add 0.5 to the pixel position because we treat 0.5 as the pixels center
+        yield pos[0] + (0.5 * self.pixel_scale[0]), pos[1] + (0.5 * self.pixel_scale[1])

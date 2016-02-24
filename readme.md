@@ -38,8 +38,30 @@ As we can see, the curved boundaries on this image look much smoother and more p
 be taken when enabling stochastic sampling, as the feature increases the number of samples evaluated
 for each pixel in the image and thus also increases the length of time taken to generate the result.
 
+NODES
+=====
+Because imagegen uses a node graph to compute the resulting image, we can combine multiple nodes together to
+form more complex images. This allows an image to be broken into its sub-parts and allows the author to develop
+each part individually.
+
+As an example, the following image was generated using the default checkerboard node provided within imagegen:
+
+[Checkerboard Example](/images/checkerboard_a.png)
+
+The checkerboard node contains two properties that specify each color used by the pattern. However, we can alter
+one of the color properties to reference the circle image we used in the previous examples. Regenerating the image
+results in the following output:
+
+[Checkerboard with circle example](/images/checker_circle.png)
+
 OUTPUT
 ======
 Imagegen is capable of outputting multiple images from a single graph, the image results are defined by the
 output node. This allows a imagegen to compute various attributes of a particular image, such as diffuse,
 specular and normal maps. Making it suitable for offline generation of textures for use within a 3D application.
+
+PERFORMANCE
+===========
+Imagegen currently performs all evaluation on the CPU and thus performance is restricted to the speed of the host
+processor. This means imagegen is really only suitable for offline processing, however once the framework has
+stabilised I will be looking into moving as much processing to the GPU where possible.

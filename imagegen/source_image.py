@@ -21,6 +21,7 @@ class ImageInfo:
         self.rotation = 0
         self.pixel = (0, 0)
         self.pos = (0, 0)
+        self.sample = (0, 0)
         self.pixel_scale = (1.0, 1.0)
 
 
@@ -106,6 +107,34 @@ class ImageTask:
                 return self.colorB
         return self.colorA
 
+    def complex_checker(self, info):
+        """
+        Test function that computes a checkerboard pattern, with a contained image.
+        :param info:
+        :return:
+        """
+        bx = info.pos[0]
+        by = info.pos[1]
+        if bx < 0.5:
+            if by >= 0.5:
+                return self.colorB
+        else:
+            bx -= 0.5
+            if by < 0.5:
+                return self.colorB
+            by -= 0.5
+
+        sub_info = ImageInfo(info.image)
+        sub_info.pixel = info.pixel
+
+        sampler = SamplerBase(1, 1, (info.pixel_scale[0] * 0.5, info.pixel_scale[1] * 0.5))
+
+        color = Color()
+        for sub_info.pos in sampler.next_sample((bx / 0.5, by / 0.5)):
+            color += self.circle(sub_info)
+        color /= len(sampler)
+        return color
+
     def execute(self, image):
         """
         Generates the pixels for the image block associated with this task.
@@ -113,18 +142,19 @@ class ImageTask:
         :return:
         """
         info = ImageInfo(image)
-        # info.pixel_scale = (1.0 / image.size[0], 1.0 / image.size[1])
+        info.pixel_scale = (1.0 / image.size[0], 1.0 / image.size[1])
 
         # TODO: The sampler will be specified in the definition file
         sampler = SamplerBase(1, 1, info.pixel_scale)
 
         for pixel in self.block.next_pixel():
-            info.pixel = pixel
+            info.pixel = (pixel[0] * sampler.pixel_scale[0], pixel[1] * sampler.pixel_scale[1])
             color = Color()
-            for sample in sampler.next_sample(pixel[0], pixel[1]):
-                info.pos = (sample[0]/image.size[0], sample[1]/image.size[1])
+            # for sample in sampler.next_sample(info.pixel):
+            for info.pos in sampler.next_sample(info.pixel):
                 # color += self.method(info)
                 # color += self.checker(info)
+                # color += self.complex_checker(info)
                 color += self.circle(info)
                 # color += self.sine_stripe(info)
             image.set_pixel(pixel, color / len(sampler))

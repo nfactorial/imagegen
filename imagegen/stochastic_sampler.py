@@ -13,15 +13,14 @@ class StochasticSampler(SamplerBase):
         """
         return self.x_samples * self.y_samples
 
-    def next_sample(self, x, y):
+    def next_sample(self, pos):
         """
         Generates a list of samples for the specified pixel.
-        :param x: Position of the pixel along the horizontal axis.
-        :param y: Position of the pixel along the vertical axis.
+        :param pos: Tuple containing the x,y coordinates of the pixel being evaluated.
         :return: Tuple containing the x,y floating point coordinates of the sample.
         """
         for x_loop in range(self.x_samples):
             for y_loop in range(self.y_samples):
                 x_jitter = random.random()
                 y_jitter = random.random()
-                yield x + (x_jitter * self.pixel_scale[0]), y + (y_jitter * self.pixel_scale[1])
+                yield pos[0] + (x_jitter * self.pixel_scale[0]), pos[1] + (y_jitter * self.pixel_scale[1])
