@@ -88,9 +88,8 @@ class ImageTask:
         return self.colorA
 
     def sine_stripe(self, info):
-        t = info.pos[0] * math.pi * 2.0
-        v = 0.5 + math.sin(t * 8.0 + info.pos[1] * 12.4) * 0.5
-        return Color(red=v, green=v, blue=v)
+        v = 0.5 + math.sin(info.pos[0] * 32.0) * 0.5
+        return self.colorA.lerp(self.colorB, v)
 
     def checker(self, info):
         """
@@ -127,4 +126,5 @@ class ImageTask:
                 # color += self.method(info)
                 # color += self.checker(info)
                 color += self.circle(info)
+                # color += self.sine_stripe(info)
             image.set_pixel(pixel, color / len(sampler))
