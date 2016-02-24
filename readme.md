@@ -25,18 +25,18 @@ As can be seen in this image, the curved boundaries of the circle do not appear 
 is caused by the sampling of each pixel missing data in-between the samples. To combat these artifacts
 imagegen supports super-sampling options on each node.
 
-Currently only stratified sampling has been provided, whilst useful it is not the only anti-aliasing method
+Currently only stochastic sampling has been provided, whilst useful it is not the only anti-aliasing method
 nor is it the best for all situations. The list of available sampling methods will be increased in the
 future.
 
-If we enable stratified sampling and re-generate the aliased image above, imagegen outputs the following
+If we enable stochastic sampling and re-generate the aliased image above, imagegen outputs the following
 result:
 
 ![SuperSampled Circle](/images/ss_circle.png)
 
 As we can see, the curved boundaries on this image look much smoother and more pleasing to the eye. Care should
-be taken when enabling stratified sampling, as the feature increases the number of samples evaluated
-for each pixel in the image and thus also increases the length of time taken to generate the output.
+be taken when enabling stochastic sampling, as the feature increases the number of samples evaluated
+for each pixel in the image and thus also increases the length of time taken to generate the result.
 
 OUTPUT
 ======

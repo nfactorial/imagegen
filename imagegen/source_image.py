@@ -1,4 +1,5 @@
 import math
+from image_block import ImageBlock
 from sampler_base import SamplerBase
 from color import Color
 from PIL import Image
@@ -15,21 +16,6 @@ def smoothstep(a, b, t):
 
 def length(x, y):
     return math.sqrt(x * x + y * y)
-
-
-class ImageBlock:
-    """
-    Represents a rectangular subset of pixels within an image.
-    Used to specify which pixels a particular task should be generating.
-    """
-    def __init__(self, pos, size):
-        self.pos = pos
-        self.size = size
-
-    def next_pixel(self):
-        for y in range(self.size[1]):
-            for x in range(self.size[0]):
-                yield (self.pos[0] + x, self.pos[1] + y)
 
 
 class ImageInfo:
@@ -151,16 +137,3 @@ class ImageTask:
                 # clr += self.checker(info)
                 clr += self.circle(info)
             image.set_pixel(pixel, clr / len(sampler))
-
-
-if __name__ == "__main__":
-    image = SourceImage((256, 256))
-
-    image_tasks = [ImageTask(x) for x in image.generate_blocks(32)]
-
-    print("Number of tasks = " + str(len(image_tasks)))
-
-    for task in image_tasks:
-        task.execute(image)
-
-    image.show()
