@@ -1,3 +1,6 @@
+from math_help import lerp
+
+
 class Color:
     """
     This class represents a four component color value with red, green, blue and alpha channels.
@@ -35,3 +38,16 @@ class Color:
         self.blue /= other
         self.alpha /= other
         return self
+
+    def lerp(self, other, t):
+        """
+        Performs a linear interpolation between two colors.
+        :param other: The second color for the interpolation operation.
+        :param t: A value between 0 and 1. Where 0 will return the first color and 1 will return the second. Any
+                  value between this range will result in a blend between the two.
+        :return: The interpolated color.
+        """
+        return Color(lerp(self.red, other.red, t),
+                     lerp(self.green, other.green, t),
+                     lerp(self.blue, other.blue, t),
+                     lerp(self.alpha, other.alpha, t))

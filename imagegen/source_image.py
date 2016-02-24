@@ -1,21 +1,12 @@
+# External imports
 import math
-from image_block import ImageBlock
-from sampler_base import SamplerBase
-from color import Color
 from PIL import Image
 
-
-def clamp(a, minval, maxval):
-    return max(minval, min(maxval, a))
-
-
-def smoothstep(a, b, t):
-    t = clamp((t - a) / (b - a), 0.0, 1.0)
-    return t * t * t * (t * (t * 6 - 15) + 10)
-
-
-def length(x, y):
-    return math.sqrt(x * x + y * y)
+# Internal imports
+from color import Color
+from math_help import smooth_step, length
+from image_block import ImageBlock
+from sampler_base import SamplerBase
 
 
 class ImageInfo:
@@ -27,6 +18,7 @@ class ImageInfo:
         """
         self.image = image
         self.block = None
+        self.rotation = 0
         self.pixel = (0, 0)
         self.pos = (0, 0)
         self.pixel_scale = (1.0, 1.0)
@@ -80,7 +72,7 @@ class ImageTask:
         x = info.pos[0] - 0.5
         y = info.pos[1] - 0.5
         r = 0.2 + 0.1 * math.cos(math.atan2(y, x) * 10.0)
-        d = smoothstep(r, r + 0.1, length(x, y))
+        d = smooth_step(r, r + 0.1, length(x, y))
         return Color(red=color[0] * d, green=color[1] * d, blue=color[2] * d)
 
     def circle(self, info):
@@ -123,17 +115,16 @@ class ImageTask:
         """
         info = ImageInfo(image)
         # info.pixel_scale = (1.0 / image.size[0], 1.0 / image.size[1])
-        info.pixel_scale = (1.0, 1.0)
 
         # TODO: The sampler will be specified in the definition file
         sampler = SamplerBase(1, 1, info.pixel_scale)
 
         for pixel in self.block.next_pixel():
             info.pixel = pixel
-            clr = Color()
+            color = Color()
             for sample in sampler.next_sample(pixel[0], pixel[1]):
                 info.pos = (sample[0]/image.size[0], sample[1]/image.size[1])
-                # clr += self.method(info)
-                # clr += self.checker(info)
-                clr += self.circle(info)
-            image.set_pixel(pixel, clr / len(sampler))
+                # color += self.method(info)
+                # color += self.checker(info)
+                color += self.circle(info)
+            image.set_pixel(pixel, color / len(sampler))
