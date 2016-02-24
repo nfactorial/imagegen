@@ -46,13 +46,13 @@ each part individually.
 
 As an example, the following image was generated using the default checkerboard node provided within imagegen:
 
-[Checkerboard Example](/images/checkerboard_a.png)
+![Checkerboard Example](/images/checkerboard_a.png)
 
 The checkerboard node contains two properties that specify each color used by the pattern. However, we can alter
 one of the color properties to reference the circle image we used in the previous examples. Regenerating the image
 results in the following output:
 
-[Checkerboard with circle example](/images/checker_circle.png)
+![Checkerboard with circle example](/images/checker_circle.png)
 
 OUTPUT
 ======
