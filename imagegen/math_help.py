@@ -44,3 +44,27 @@ def smooth_step(minimum, maximum, x):
     """
     x = clamp((x - minimum) / (maximum - minimum), 0.0, 1.0)
     return x * x * x * (x * (x * 6 - 15) + 10)
+
+
+def rotate(pos, radians):
+    """
+    Rotates a two-dimensional vector around the origin.
+    :param pos: Tuple containing the x and y coordinates of the vector to be rotated.
+    :param radians: Angle (in radians) the vector is to be rotated by.
+    :return: Tuple containing the rotated coordinates of the supplied position.
+    """
+    cos_theta = math.cos(radians)
+    sin_theta = math.sin(radians)
+    return pos[0] * cos_theta - pos[1] * sin_theta, pos[0] * sin_theta + pos[1] * cos_theta
+
+
+def rotate_origin(pos, origin, radians):
+    """
+    Rotates a two-dimensional vector around a specified origin.
+    :param pos: Tuple containing the x and y coordinates of the vector to be rotated.
+    :param origin: Tuple containing the x and y coordinates of the point to be rotated around.
+    :param radians: Angle (in radians) the vector is to be rotated by.
+    :return: Tuple containing the rotated coordinates of the supplied position around the supplied origin.
+    """
+    rot = rotate((pos[0] - origin[0], pos[1] - origin[1]), radians)
+    return rot[0] + origin[0], rot[1] + origin[1]

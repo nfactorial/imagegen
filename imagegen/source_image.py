@@ -4,7 +4,7 @@ from PIL import Image
 
 # Internal imports
 from color import Color
-from math_help import smooth_step, length
+from math_help import smooth_step, length, rotate_origin
 from image_block import ImageBlock
 from sampler_base import SamplerBase
 
