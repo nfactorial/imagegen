@@ -5,6 +5,8 @@ This python module provides some simple functionality for generating procedural 
 Images are formed by connecting various nodes within a graph, the module then processes the graph to produce
 the output image. Image graphs are defined within a JSON formatted file.
 
+The main goal of the project is mostly to practice Python with a relatively fun project.
+
 EXAMPLES
 ========
 The examples folder contains a selection of simple image graphs that may be executed to produce some example
@@ -34,4 +36,10 @@ result:
 
 As we can see, the curved boundaries on this image look much smoother and more pleasing to the eye. Care should
 be taken when enabling stratified sampling, as the feature increases the number of samples evaluated
-for each pixel in the iage and thus also increases the length of time taken to generate the output.
+for each pixel in the image and thus also increases the length of time taken to generate the output.
+
+OUTPUT
+======
+Imagegen is capable of outputting multiple images from a single graph, the image results are defined by the
+output node. This allows a generated image to compute various attributes of a particle image, such as diffuse,
+specular and normal maps. Making it suitable for offline generation of textures for use within a 3D application.
