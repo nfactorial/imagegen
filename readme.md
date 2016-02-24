@@ -18,7 +18,6 @@ changing data the resulting image can appear 'aliased' with clearly missing data
 an example image generated with imagegen, we have used a simple circle generator:
 
 ![Aliased Circle](/images/aliased_circle.png)
-Format: [Aliased Circle generated with imagegen](https://github.com/nfactorial/imagegen/images/aliased_circle.png)
 
 As can be clearly seen in this image, the rounded area of the circle does not appear smooth to the eye, this
 is caused by the sampling of each pixel missing data in-between the samples. To combat these artifacts
