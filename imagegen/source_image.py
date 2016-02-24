@@ -54,6 +54,9 @@ class SourceImage:
     def show(self):
         self.image.show()
 
+    def save(self, path):
+        self.image.save(path)
+
     def set_pixel(self, pos, color):
         self.image.putpixel(pos, (int(color[0] * 255), int(color[1] * 255), int(color[2] * 255)))
 
@@ -95,10 +98,12 @@ class ImageTask:
         x = info.pos[0] - 0.5
         y = info.pos[1] - 0.5
         d = math.sqrt(x*x + y*y)
-        a = math.atan2(y, x)
+        # a = math.atan2(y, x)
+        # if 0.3 < d < 0.35:
+        #    if a < 1.0:
+        #        return self.colorB
         if 0.3 < d < 0.35:
-            if a < 1.0:
-                return self.colorB
+            return self.colorB
         return self.colorA
 
     def checker(self, info):

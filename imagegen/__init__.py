@@ -1,8 +1,9 @@
 """
 Run unit tests with....
 python -m unittest discover tests
+"""
 
-
+"""
 from source_image import SourceImage, ImageTask
 
 job_size = 32
@@ -16,4 +17,5 @@ for task in image_tasks:
     task.execute(image)
 
 image.show()
+image.save('ouput.png')
 """
