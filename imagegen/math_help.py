@@ -12,15 +12,15 @@ def lerp(a, b, t):
     return a + (b - a) * t
 
 
-def clamp(a, minval, maxval):
+def clamp(a, minimum, maximum):
     """
     Clamps the specified value to the minimum and maximum range.
     :param a: The value to be clamped.
-    :param minval: The specified minimum range.
-    :param maxval: The specified maximum range.
+    :param minimum: The specified minimum range.
+    :param maximum: The specified maximum range.
     :return: The clamped value.
     """
-    return max(minval, min(maxval, a))
+    return max(minimum, min(maximum, a))
 
 
 def length(x, y):
@@ -53,8 +53,7 @@ def rotate(pos, radians):
     :param radians: Angle (in radians) the vector is to be rotated by.
     :return: Tuple containing the rotated coordinates of the supplied position.
     """
-    cos_theta = math.cos(radians)
-    sin_theta = math.sin(radians)
+    cos_theta, sin_theta = math.cos(radians), math.sin(radians)
     return pos[0] * cos_theta - pos[1] * sin_theta, pos[0] * sin_theta + pos[1] * cos_theta
 
 
