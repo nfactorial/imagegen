@@ -4,7 +4,7 @@ import unittest
 from imagegen.source_image import SourceImage
 
 
-class TestClamp(unittest.TestCase):
+class TestSourceImage(unittest.TestCase):
     def test_block_size_1x1(self):
         image = SourceImage(1, 1)
         blocks = [x for x in image.generate_blocks(32)]

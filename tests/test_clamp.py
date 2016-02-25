@@ -1,7 +1,7 @@
 # test_clamp.py
 
 import unittest
-from imagegen.source_image import clamp
+from imagegen.math_help import clamp
 
 
 class TestClamp(unittest.TestCase):
