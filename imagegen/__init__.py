@@ -17,4 +17,4 @@ for task in image_tasks:
     task.execute(image)
 
 image.show()
-image.save('ouput.png')
+image.save('output.png')
