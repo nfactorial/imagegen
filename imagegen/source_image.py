@@ -28,7 +28,9 @@ class ImageInfo:
 class SourceImage:
     def __init__(self, width, height):
         """
-        size - A 2-tuple containing (width,height) in pixels.
+        Prepares the source image for use by the application.
+        :param width: The width of the image (in pixels)
+        :param height: The height of the image (in pixels)
         """
         self.size = (width, height)
         self.image = Image.new("RGB", self.size, "black")
@@ -45,6 +47,8 @@ class SourceImage:
     def generate_blocks(self, block_size):
         """
         Generates a list of ImageBlock objects that may be used to generate the entire image.
+        :param block_size: The size of a single image block (in pixels).
+        :return:
         """
         x = 0
         while x < self.size[0]:
