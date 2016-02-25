@@ -143,10 +143,39 @@ class ImageTask:
         color /= len(sampler)
         return color
 
+    def evaluate_pixel(self, info, sampler):
+        """
+        Computes the color of a pixel within an image.
+        :param info: Description of the pixel being evaluated.
+        :param sampler: The sampler to be used when computing the pixel color.
+        :return: The color of the specified pixel.
+        """
+        color = Color()
+        for info.pos in sampler.next_sample(info.pixel):
+            # color += self.method(info)
+            # color += self.checker(info)
+            # color += self.complex_checker(info)
+            color += self.circle(info)
+            # color += self.sine_stripe(info)
+
+        return color / len(sampler)
+
+    def evaluate_block(self, info, block, sampler):
+        """
+        Generator function that returns the position and color of each pixel within the specified image block.
+        :param info: Description of the image being evaluated.
+        :param block: Description of the image block being evaluated.
+        :param sampler: The sampler to be used when computing the pixel color.
+        :return: Tuple containing (pixel coordinates, pixel color).
+        """
+        for pixel in block.next_pixel():
+            info.pixel = (pixel[0] * sampler.pixel_scale[0], pixel[1] * sampler.pixel_scale[1])
+            yield pixel, self.evaluate_pixel(info, sampler)
+
     def execute(self, image):
         """
-        Generates the pixels for the image block associated with this task.
-        :param image: The image which is to contain our generated data.
+        Computes the color of an image using the current graph tree.
+        :param image: The image whose content is to be calculated.
         :return:
         """
         info = ImageInfo(image)
@@ -155,14 +184,5 @@ class ImageTask:
         # TODO: The sampler will be specified in the definition file
         sampler = SamplerBase(1, 1, info.pixel_scale)
 
-        for pixel in self.block.next_pixel():
-            info.pixel = (pixel[0] * sampler.pixel_scale[0], pixel[1] * sampler.pixel_scale[1])
-            color = Color()
-            # for sample in sampler.next_sample(info.pixel):
-            for info.pos in sampler.next_sample(info.pixel):
-                # color += self.method(info)
-                # color += self.checker(info)
-                # color += self.complex_checker(info)
-                color += self.circle(info)
-                # color += self.sine_stripe(info)
-            image.set_pixel(pixel, color / len(sampler))
+        for pixel, color in self.evaluate_block(info, self.block, sampler):
+            image.set_pixel(pixel, color)

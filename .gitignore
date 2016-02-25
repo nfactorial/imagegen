@@ -8,5 +8,8 @@
 # Local tests generate output.png, no need to put that into version control
 output.png
 
+# No need to upload profile log
+profile.prof
+
 # Build directory is not under version control
 build
