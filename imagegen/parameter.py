@@ -74,3 +74,14 @@ class Parameter:
         :return: The name of the parameter.
         """
         return self.definition.name
+
+    def bind(self, node):
+        """
+        Binds the parameters value to the output of a specified node.
+        :param node: The node to which the parameter will be bound.
+        """
+        if node is None:
+            raise TypeError
+        if node.output != self.definition.param_type:
+            raise TypeError
+        self.binding = node

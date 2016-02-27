@@ -43,12 +43,13 @@ def register_node(name, eval_func, input_args, output=None):
     imagegen_node_registry[name] = NodeDefinition(eval_func, input_args, output)
 
 
-def create_node(name):
+def create_node(name, node_type):
     """
     Create an instance of a node associated with the specified name.
-    :param name: The type name of the node to be created.
+    :param name: The name to be associated with the newly created node.
+    :param node_type: The type of node to be instantiated.
     :return: The newly created node of the specified type.
     """
-    if name in imagegen_node_registry:
-        return Node(imagegen_node_registry[name])
+    if node_type in imagegen_node_registry:
+        return Node(name, imagegen_node_registry[node_type])
     raise NodeExistsError(name)                 # TODO: Should be 'NotFound' exception

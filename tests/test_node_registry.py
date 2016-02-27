@@ -3,13 +3,13 @@
 import unittest
 
 from imagegen.color import Color
-from imagegen.parameter import Parameter
 from imagegen.node_registry import register_node
+from imagegen.parameter import ParameterDefinition
 
-test_input = {
-    'background': Parameter(param_type='color', default_value=Color(red=0.0, green=0.0, blue=0.0, alpha=1.0)),
-    'color': Parameter(param_type='color', default_value=Color(red=1.0, green=1.0, blue=1.0, alpha=1.0)),
-}
+test_input = [
+    ParameterDefinition('background', param_type='color', default_value=Color(red=0.0, green=0.0, blue=0.0, alpha=1.0)),
+    ParameterDefinition('color', param_type='color', default_value=Color(red=1.0, green=1.0, blue=1.0, alpha=1.0)),
+]
 
 
 class TestNodeRegistry(unittest.TestCase):

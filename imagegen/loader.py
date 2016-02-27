@@ -9,8 +9,9 @@ def generate_nodes(json_data):
     """
     if json_data['nodes'] is not None:
         for x in json_data['nodes']:
-            node = create_node(x)
-            yield node.name, node
+            node = create_node(x['name'], x['type'])
+            # TODO: Copy over properties for the node
+            yield node
 
 
 def resolve_parameters(node, nodes):
@@ -41,6 +42,6 @@ def create_nodes(json_data):
     :param json_data: The json data that describes each node to be created.
     :return: List of nodes that were described within the supplied json data.
     """
-    nodes = {name: node for name, node in generate_nodes(json_data)}
+    nodes = {node.name: node for node in generate_nodes(json_data)}
     resolve_nodes(nodes)
     return nodes
