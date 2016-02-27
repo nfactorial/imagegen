@@ -4,39 +4,22 @@
 		"version": "0.01",
 		"description": [
 			"This example file defines an image generation that results in ring with a checkerboard background image that has been scaled.",
-			"We can change the colors that form the checkerboard by altering the values for colorA and colorB in the checker node."
+			"We can change the colors that form the checkerboard by altering the values for color_a and color_b in the checker node."
 		]
 	},
 	"nodes": [
 		{
 			"name": "checker",
 			"type": "checker",
+			"scale": 8.0,
 			"param": [
 				{
-					"name": "colorA",
-					"value": [ 0.0, 0.0, 0.0 ]
+					"name": "color_a",
+					"rgb": [ 0.0, 0.0, 0.0 ]
 				},
 				{
-					"name": "colorB",
-					"value": [ 1.0, 1.0, 1.0 ]
-				}
-			]
-		},
-		{
-			"name": "scale",
-			"type": "scale_image",
-			"param": [
-				{
-					"name": "scaleX",
-					"value": 8
-				},
-				{
-					"name": "scaleY",
-					"value": 8
-				},
-				{
-					"name": "color",
-					"bind": "checker"
+					"name": "color_b",
+					"rgb": [ 1.0, 1.0, 1.0 ]
 				}
 			]
 		},
@@ -46,11 +29,11 @@
 			"param": [
 				{
 					"name": "color",
-					"value": [ 0.0, 0.0, 0.0 ]
+					"rgb": [ 0.0, 0.0, 0.0 ]
 				},
 				{
 					"name": "background",
-					"bind": "scale"
+					"bind": "checker"
 				}
 			]
 		}

@@ -188,5 +188,9 @@ class ImageTask:
         # TODO: The sampler will be specified in the definition file
         sampler = SamplerBase(1, 1, info.pixel_scale)
 
+        # image.set_pixel(for pixel, color in self.evaluate_block(info, self.block, sampler))
+        # [image.set_pixel(pixel, color) for pixel, color in self.evaluate_block(info, self.block, sampler)]
+        # image.set_pixel(pixel, color for pixel, color in self.evaluate_block(info, self.block, sampler))
+        # image.set_pixel(pixel, color) (for pixel, color in self.evaluate_block(info, self.block, sampler))
         for pixel, color in self.evaluate_block(info, self.block, sampler):
             image.set_pixel(pixel, color)

@@ -3,7 +3,15 @@ Run unit tests with....
 python -m unittest discover tests
 """
 
+import sys
+import imagegen.nodes
+
 from source_image import SourceImage, ImageTask
+
+print('len(argv) = ' + str(len(sys.argv)))
+for x in sys.argv:
+    print(x)
+
 
 job_size = 32
 

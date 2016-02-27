@@ -13,12 +13,12 @@
 			"type": "checker",
 			"param": [
 				{
-					"name": "colorA",
-					"value": [ 0.0, 0.0, 0.0 ]
+					"name": "color_a",
+					"rgb": [ 0.0, 0.0, 0.0 ]
 				},
 				{
-					"name": "colorB",
-					"value": [ 1.0, 1.0, 1.0 ]
+					"name": "color_b",
+					"rgb": [ 1.0, 1.0, 1.0 ]
 				}
 			]
 		}

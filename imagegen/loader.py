@@ -1,24 +1,46 @@
-import json
-from node import Node
+from node_registry import create_node
 
 
-class Loader:
+def generate_nodes(json_data):
     """
-    This class implements the logic that loads an image generation file from the hard-drive and prepares
-    imagegen for processing.
+    Generates a Node instance for each definition within the supplied json data.
+    :param json_data: The json data containing the description for each node to be created.
+    :return: Yields one node instance for each entry within the supplied json data.
     """
-    def __init__(self, path):
-        self.nodes = None
-        self.path = path
-        with open(path, 'r') as f:
-            self.load_nodes(json.load(f))
+    if json_data['nodes'] is not None:
+        for x in json_data['nodes']:
+            node = create_node(x)
+            yield node.name, node
 
-    # Once everything has been loaded, the application then calls 'generateTasks'. This will walk the
-    # graph defined within the generation tree and spit out the tasks necessary for producing the image.
-    # the list of tasks is then passed onto the scheduler for processing.
-    # Once complete, we are left with all nodes containing their generated images (if necessary) and we
-    # can produce the final image.
 
-    def load_nodes(self, json_data):
-        if json_data[ 'nodes' ] is not None:
-            self.nodes = [Node(x) for x in json_data['nodes']]
+def resolve_parameters(node, nodes):
+    """
+    Given a single node, this method resolves any references to other nodes within the parameter list.
+    :param node: The node whose parameters are to be resolved.
+    :param nodes: List of available nodes for binding.
+    :return:
+    """
+    for p in node.parameters:
+        if p.binding is not None:
+            p.binding = nodes[p.binding]
+
+
+def resolve_nodes(nodes):
+    """
+    Given a list of nodes, this method resolves all the parameters that make reference to other nodes.
+    :param nodes: List of nodes whose parameters are to be resolved.
+    :return:
+    """
+    for node in nodes:
+        resolve_parameters(node, nodes)
+
+
+def create_nodes(json_data):
+    """
+    Creates a dictionary of nodes from the supplied json data.
+    :param json_data: The json data that describes each node to be created.
+    :return: List of nodes that were described within the supplied json data.
+    """
+    nodes = {name: node for name, node in generate_nodes(json_data)}
+    resolve_nodes(nodes)
+    return nodes
