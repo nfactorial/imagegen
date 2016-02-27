@@ -1,13 +1,13 @@
 import math
 
 from imagegen.color import Color
-from imagegen.parameter import Parameter
+from imagegen.parameter import ParameterDefinition
 from imagegen.node_registry import register_node
 
-checkerboard_input = {
-    'color_a': Parameter(param_type='color', default_value=Color(red=0.0, green=0.0, blue=0.0, alpha=1.0)),
-    'color_b': Parameter(param_type='color', default_value=Color(red=1.0, green=1.0, blue=1.0, alpha=1.0))
-}
+checkerboard_input = [
+    ParameterDefinition('color_a', param_type='color', default_value=Color(red=0.0, green=0.0, blue=0.0, alpha=1.0)),
+    ParameterDefinition('color_b', param_type='color', default_value=Color(red=1.0, green=1.0, blue=1.0, alpha=1.0))
+]
 
 
 def evaluate_checkerboard(eval_info):

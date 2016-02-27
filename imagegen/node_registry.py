@@ -1,3 +1,4 @@
+from imagegen.node import Node
 from collections import namedtuple
 
 # This tuple describes a registered node within the application.
@@ -36,7 +37,7 @@ def register_node(name, eval_func, input_args, output=None):
     :param output: The parameter the node will compute.
     :return:
     """
-    if imagegen_node_registry[name] is not None:
+    if name in imagegen_node_registry:
         raise NodeExistsError(name)
 
     imagegen_node_registry[name] = NodeDefinition(eval_func, input_args, output)
@@ -48,6 +49,6 @@ def create_node(name):
     :param name: The type name of the node to be created.
     :return: The newly created node of the specified type.
     """
-    if imagegen_node_registry[name] is None:
-        raise NodeExistsError(name)         # TODO: Should be 'NotFound' exception
-    return imagegen_node_registry[name]     # TODO: Actually create the node
+    if name in imagegen_node_registry:
+        return Node(imagegen_node_registry[name])
+    raise NodeExistsError(name)                 # TODO: Should be 'NotFound' exception

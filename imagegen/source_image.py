@@ -33,7 +33,7 @@ class SourceImage:
         :param height: The height of the image (in pixels)
         """
         self.size = (width, height)
-        self.image = Image.new("RGB", self.size, "black")
+        self.image = Image.new('RGB', self.size, 'black')
 
     def show(self):
         self.image.show()

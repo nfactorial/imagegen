@@ -15,6 +15,8 @@ for x in sys.argv:
 
 job_size = 32
 
+# We split all images that are to be processed into smaller rectangles of 'work'
+# This is to allow us to distribute these tasks to separate threads in the future.
 image = SourceImage(256, 256)
 image_tasks = [ImageTask(x) for x in image.generate_blocks(job_size)]
 
