@@ -9,6 +9,13 @@ The main goal of the project is mostly to practice Python with a relatively fun 
 
 USAGE
 =====
+Imagegen currently require PIL or Pillow to be installed (https://pillow.readthedocs.org/en/3.0.0/installation.html).
+If you have pip installed, please ensure it has been installed with:
+
+```
+pip install Pillow
+```
+
 Imagegen requires an image definition file to be supplied, this file is a JSON formatted document that describes
 the image you wish to be generated. Some simple examples are included inside the examples folder. Once you have
 an image definition file, you may run imagegen from the command line:
