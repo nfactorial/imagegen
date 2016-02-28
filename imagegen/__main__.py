@@ -20,8 +20,8 @@ import argparse
 
 from .nodes import *
 
-from project import Project
-from node_registry import imagegen_node_registry
+from .project import Project
+from .node_registry import imagegen_node_registry
 
 """
 Run unit tests with....

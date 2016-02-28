@@ -14,9 +14,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from color import Color
-from eval_info import EvalInfo
-from sampler_base import SamplerBase
+from .color import Color
+from .eval_info import EvalInfo
+from .sampler_base import SamplerBase
+from .stochastic_sampler import StochasticSampler
 
 
 class ImageBlock:
@@ -81,6 +82,7 @@ class ImageBlock:
         """
         # TODO: The sampler will be specified in the definition file
         sampler = SamplerBase(1, 1, (1.0, 1.0))
+        # sampler = StochasticSampler(4, 4, (1.0, 1.0))
 
         eval_info = EvalInfo(output.node)
         for pixel in self.next_pixel():

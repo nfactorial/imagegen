@@ -15,7 +15,7 @@ limitations under the License.
 """
 
 from PIL import Image
-from image_block import ImageBlock
+from .image_block import ImageBlock
 
 
 class OutputImage:

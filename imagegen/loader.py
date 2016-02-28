@@ -14,8 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from output_node import OutputNode
-from node_registry import create_node
+from .output_node import OutputNode
+from .node_registry import create_node
 
 
 def generate_nodes(json_data):

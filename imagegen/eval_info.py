@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from imagegen.math_help import rotate_origin
+from .math_help import rotate_origin
 
 
 class EvalInfo:

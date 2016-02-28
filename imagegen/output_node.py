@@ -14,10 +14,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from output_image import OutputImage
 from multiprocessing import Pool
 
-from image_block import execute_block
+from .output_image import OutputImage
+from .image_block import execute_block
 
 
 class OutputNode:

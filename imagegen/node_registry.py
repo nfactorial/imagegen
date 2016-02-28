@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from node import Node
+from .node import Node
 from collections import namedtuple
 
 # This tuple describes a registered node within the application.

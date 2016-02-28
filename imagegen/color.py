@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from math_help import lerp
+from .math_help import lerp
 
 
 class Color:

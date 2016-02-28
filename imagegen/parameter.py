@@ -14,8 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-import math
-from color import Color
+from .color import Color
 
 
 def read_scalar_json(param, desc):

@@ -15,7 +15,7 @@ limitations under the License.
 """
 
 import json
-from loader import create_nodes, create_output
+from .loader import create_nodes, create_output
 
 
 class Project:

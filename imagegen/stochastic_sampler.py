@@ -15,7 +15,7 @@ limitations under the License.
 """
 
 import random
-from sampler_base import SamplerBase
+from .sampler_base import SamplerBase
 
 
 class StochasticSampler(SamplerBase):
