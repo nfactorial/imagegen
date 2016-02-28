@@ -7,7 +7,10 @@ def read_scalar_json(param, desc):
     :param param: The parameter whose value is being read.
     :param desc: Json description of the parameter.
     """
-    param.current_value = desc['value']
+    if 'value' in desc:
+        param.current_value = desc['value']
+    else:
+        param.current_value = param.definition.default_value
 
 
 def read_color_json(param, desc):
@@ -35,15 +38,14 @@ class ParameterDefinition:
     is used to represent an actual instance of a parameter.
     """
     def __init__(self, name, param_type=None, minimum=None, maximum=None, default_value=None):
-        if param_type in json_param_readers:
-            self.read_json = json_param_readers[param_type]
-        else:
+        if param_type not in json_param_readers:
             raise TypeError
+        self.read_json = json_param_readers[param_type]
         self.name = name
         self.param_type = param_type
-        self.minimum = math.inf if minimum is None else minimum
+        self.minimum = float('Inf') if minimum is None else minimum
         self.has_minimum = False if minimum is None else True
-        self.maximum = -math.inf if maximum is None else maximum
+        self.maximum = -float('Inf') if maximum is None else maximum
         self.has_maximum = False if maximum is None else True
         self.default_value = default_value
         self.node = None
@@ -109,7 +111,7 @@ class Parameter:
         Reads the contents of the parameter from the supplied json data.
         :param desc: Json description of the parameter.
         """
-        if desc['bind']:
+        if 'bind' in desc:
             self.binding = desc['bind']
         else:
             self.definition.read_json(self, desc)

@@ -21,11 +21,16 @@ class Node:
         self.output = definition.output
 
     def read_json(self, desc):
-        self.origin = desc['origin'][0]
-        self.origin = desc['origin'][1]
-        self.scaling = desc['scaling']
-        if desc.params is not None:
-            for p in desc.params:
+        if 'origin' in desc:
+            self.origin = (desc['origin'][0], desc['origin'][1])
+        else:
+            self.origin = (0.0, 0.0)
+        if 'scaling' in desc:
+            self.scaling = (desc['scaling'][0], desc['scaling'][1])
+        else:
+            self.scaling = (1.0, 1.0)
+        if 'params' in desc:
+            for p in desc['params']:
                 if p.name in self.params:
                     self.params[p.name].read_json(p)
                 else:

@@ -21,7 +21,7 @@ def resolve_parameters(node, nodes):
     :param nodes: List of available nodes for binding.
     :return:
     """
-    for p in node.params:
+    for key, p in node.params.items():
         if p.binding is not None:
             p.binding = nodes[p.binding]
 
@@ -32,8 +32,8 @@ def resolve_nodes(nodes):
     :param nodes: List of nodes whose parameters are to be resolved.
     :return:
     """
-    for node in nodes:
-        resolve_parameters(node, nodes)
+    for item in nodes.items():
+        resolve_parameters(item[1], nodes)
 
 
 def create_nodes(json_data):

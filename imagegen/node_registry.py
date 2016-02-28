@@ -1,4 +1,4 @@
-from imagegen.node import Node
+from node import Node
 from collections import namedtuple
 
 # This tuple describes a registered node within the application.

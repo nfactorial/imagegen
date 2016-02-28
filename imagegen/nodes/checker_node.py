@@ -1,8 +1,8 @@
 import math
 
-from imagegen.color import Color
-from imagegen.parameter import ParameterDefinition
-from imagegen.node_registry import register_node
+from ..color import Color
+from ..parameter import ParameterDefinition
+from ..node_registry import register_node
 
 checkerboard_input = [
     ParameterDefinition('color_a', param_type='color', default_value=Color(red=0.0, green=0.0, blue=0.0, alpha=1.0)),
@@ -26,5 +26,4 @@ def evaluate_checkerboard(eval_info):
         return eval_info.evaluate('color_b', (x - 0.5) / 0.5, y / 0.5)
     return eval_info.evaluate('color_a', (x - 0.5) / 0.5, (y - 0.5) / 0.5)
 
-
-register_node('imagegen.checkerboard', evaluate_checkerboard, checkerboard_input, output='color')
+register_node('checker', evaluate_checkerboard, checkerboard_input, output='color')

@@ -26,5 +26,4 @@ def evaluate_circle(eval_info):
         return eval_info.evaluate('color', eval_info.x, eval_info.y)
     return eval_info.evaluate('background', eval_info.x, eval_info.y)
 
-
 register_node('imagegen.circle', evaluate_circle, circle_input, output='color')
