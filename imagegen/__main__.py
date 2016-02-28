@@ -14,25 +14,24 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-"""
-Run unit tests with....
-python -m unittest discover tests
-"""
-
-import json
 import os.path
 import argparse
 
 from .nodes import *
 
 from project import Project
-from source_image import SourceImage, ImageTask
+
+"""
+Run unit tests with....
+python -m unittest discover tests
+"""
 
 parser = argparse.ArgumentParser(description='Imaggen - by nfactorial', prog='imagegen')
 parser.add_argument('-f', dest='filename', required=True,
                     help='The filename of the JSON definition file containing the image to be generated.')
 args = parser.parse_args()
 
+# Make sure the JSON file exists before we try to load it.
 if not os.path.exists(args.filename):
     print('Imagegen - ERROR - Could not locate file \'' + args.filename + '\'.')
     exit()
@@ -40,35 +39,10 @@ if not os.path.exists(args.filename):
 project = Project()
 project.load_json(args.filename)
 
-print('Node hierarchy created, number of nodes = ' + str(len(project.nodes)))
-print('Number of output nodes = ' + str(len(project.output)))
-for key, n in project.nodes.items():
-    print('Node - type = ' + n.definition.name + ', name = ' + n.name)
-for key, o in project.output.items():
-    print('Output - name = ' + o.name)
-
-job_size = 32
+job_size = 32   # TODO: Make available as a command line argument
 
 for _, output in project.output.items():
-    if output.node is not None:
-        image = SourceImage(output.width, output.height)
-        # We split all images that are to be processed into smaller rectangles of 'work'
-        # This is to allow us to distribute these tasks to separate threads in the future.
-        image_tasks = [ImageTask(x) for x in image.generate_blocks(job_size)]
-        for task in image_tasks:
-            task.execute2(image, output)
-        image.save(output.name + '.' + output.file_type)
-        image.show()
-
-"""
-image = SourceImage(256, 256)
-image_tasks = [ImageTask(x) for x in image.generate_blocks(job_size)]
-
-print("Number of tasks = " + str(len(image_tasks)))
-
-for task in image_tasks:
-    task.execute(image)
-
-image.show()
-image.save('output.png')
-"""
+    image = output.generate_image(job_size)
+    if image is not None:
+        image.save(output.filename)
+        # image.show()
