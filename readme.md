@@ -7,6 +7,17 @@ the output image. Image graphs are defined within a JSON formatted file.
 
 The main goal of the project is mostly to practice Python with a relatively fun project.
 
+USAGE
+=====
+Imagegen requires an image definition file to be supplied, this file is a JSON formatted document that describes
+the image you wish to be generated. Some simple examples are included inside the examples folder. Once you have
+an image definition file, you may run imagegen from the command line:
+
+python imagegen -f {filename}
+
+Where you must specify the filename of your definition file in place of the {filename}. Imagegen will then load
+the json data and produce the output images.
+
 EXAMPLES
 ========
 The examples folder contains a selection of simple image graphs that may be executed to produce some example
