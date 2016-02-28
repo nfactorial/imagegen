@@ -19,11 +19,20 @@ from .loader import create_nodes, create_output
 
 
 class Project:
+    """
+    This class represents an entire image project.
+    A project contains a list of all nodes used to generate the image as well as all the output nodes which
+    define the image files that are to be exported.
+    """
     def __init__(self):
         self.nodes = {}
         self.output = {}
 
     def load_json(self, path):
+        """
+        Reads the contents of an image project described within a JSON formatted data file.
+        :param path: Path to the JSON file containing the image definition.
+        """
         with open(path) as f:
             data = json.load(f)
             self.nodes = create_nodes(data)
