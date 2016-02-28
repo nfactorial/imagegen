@@ -7,8 +7,8 @@ from imagegen.parameter import ParameterDefinition
 circle_input = [
     ParameterDefinition('background', param_type='color', default_value=Color(red=0.0, green=0.0, blue=0.0, alpha=1.0)),
     ParameterDefinition('color', param_type='color', default_value=Color(red=1.0, green=1.0, blue=1.0, alpha=1.0)),
-    ParameterDefinition('inner_radius', param_type='float', minimum=0.0, maximum=1.0, default_value=0.3),
-    ParameterDefinition('outer_radius', param_type='float', minimum=0.0, maximum=1.0, default_value=0.35)
+    ParameterDefinition('inner_radius', param_type='scalar', minimum=0.0, maximum=1.0, default_value=0.3),
+    ParameterDefinition('outer_radius', param_type='scalar', minimum=0.0, maximum=1.0, default_value=0.35)
 ]
 
 

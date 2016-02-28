@@ -19,3 +19,14 @@ class Node:
         self.evaluate = definition.evaluate
         self.params = {p.name: Parameter(p) for p in definition.input}
         self.output = definition.output
+
+    def read_json(self, desc):
+        self.origin = desc['origin'][0]
+        self.origin = desc['origin'][1]
+        self.scaling = desc['scaling']
+        if desc.params is not None:
+            for p in desc.params:
+                if p.name in self.params:
+                    self.params[p.name].read_json(p)
+                else:
+                    print('Warn: Parameter \'' + p.name + '\' does not exist in node type \'' + self.definition.name + '\'.')

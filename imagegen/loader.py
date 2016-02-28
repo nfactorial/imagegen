@@ -8,9 +8,9 @@ def generate_nodes(json_data):
     :return: Yields one node instance for each entry within the supplied json data.
     """
     if json_data['nodes'] is not None:
-        for x in json_data['nodes']:
-            node = create_node(x['name'], x['type'])
-            # TODO: Copy over properties for the node
+        for desc in json_data['nodes']:
+            node = create_node(desc['name'], desc['type'])
+            node.read_json(desc)
             yield node
 
 
@@ -21,7 +21,7 @@ def resolve_parameters(node, nodes):
     :param nodes: List of available nodes for binding.
     :return:
     """
-    for p in node.parameters:
+    for p in node.params:
         if p.binding is not None:
             p.binding = nodes[p.binding]
 

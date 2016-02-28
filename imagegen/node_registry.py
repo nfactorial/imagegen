@@ -2,7 +2,7 @@ from imagegen.node import Node
 from collections import namedtuple
 
 # This tuple describes a registered node within the application.
-NodeDefinition = namedtuple('NodeDefinition', ['evaluate', 'input', 'output'])
+NodeDefinition = namedtuple('NodeDefinition', ['name', 'evaluate', 'input', 'output'])
 
 
 # This dictionary contains all the nodes currently registered
@@ -40,7 +40,7 @@ def register_node(name, eval_func, input_args, output=None):
     if name in imagegen_node_registry:
         raise NodeExistsError(name)
 
-    imagegen_node_registry[name] = NodeDefinition(eval_func, input_args, output)
+    imagegen_node_registry[name] = NodeDefinition(name, eval_func, input_args, output)
 
 
 def create_node(name, node_type):
