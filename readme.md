@@ -10,7 +10,7 @@ The main goal of the project is mostly to practice Python with a relatively fun 
 USAGE
 =====
 Imagegen currently require PIL or Pillow to be installed (https://pillow.readthedocs.org/en/3.0.0/installation.html).
-If you have pip installed, please ensure it has been installed with:
+If you have pip installed, Pillow can be added easily with:
 
 ```
 pip install Pillow
