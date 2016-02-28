@@ -1,3 +1,19 @@
+"""
+Copyright 2016 nfactorial
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+"""
+
 # External imports
 import math
 from PIL import Image
@@ -7,6 +23,8 @@ from color import Color
 from math_help import smooth_step, length
 from image_block import ImageBlock
 from sampler_base import SamplerBase
+
+from eval_info import EvalInfo
 
 
 class ImageInfo:
@@ -193,4 +211,40 @@ class ImageTask:
         # image.set_pixel(pixel, color for pixel, color in self.evaluate_block(info, self.block, sampler))
         # image.set_pixel(pixel, color) (for pixel, color in self.evaluate_block(info, self.block, sampler))
         for pixel, color in self.evaluate_block(info, self.block, sampler):
+            image.set_pixel(pixel, color)
+
+    def evaluate_pixel2(self, output, info, sampler, pixel):
+        """
+        Computes the color of a pixel within an image.
+        :param info: Description of the pixel being evaluated.
+        :param sampler: The sampler to be used when computing the pixel color.
+        :return: The color of the specified pixel.
+        """
+        # TODO: Move color object into info, so we don't need to construct one all the time?
+        color = Color()
+        for info.x, info.y in sampler.next_sample(pixel):
+            info.x /= output.width
+            info.y /= output.height
+            color += info.node.evaluate(info)
+
+        return color / len(sampler)
+
+    def evaluate_block2(self, output, info, block, sampler):
+        """
+        Generator function that returns the position and color of each pixel within the specified image block.
+        :param info: Description of the image being evaluated.
+        :param block: Description of the image block being evaluated.
+        :param sampler: The sampler to be used when computing the pixel color.
+        :return: Tuple containing (pixel coordinates, pixel color).
+        """
+        for pixel in block.next_pixel():
+            # info.x, info.y = pixel[0] * sampler.pixel_scale[0], pixel[1] * sampler.pixel_scale[1]
+            yield pixel, self.evaluate_pixel2(output, info, sampler, pixel)
+
+    def execute2(self, image, output):
+        # TODO: The sampler will be specified in the definition file
+        sampler = SamplerBase(1, 1, (1.0, 1.0))
+
+        eval_info = EvalInfo(output.node)
+        for pixel, color in self.evaluate_block2(output, eval_info, self.block, sampler):
             image.set_pixel(pixel, color)

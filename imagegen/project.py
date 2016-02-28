@@ -14,17 +14,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-import unittest
-from imagegen.source_image import SourceImage
+import json
+from loader import create_nodes, create_output
 
 
-class TestSourceImage(unittest.TestCase):
-    def test_block_size_1x1(self):
-        image = SourceImage(1, 1)
-        blocks = [x for x in image.generate_blocks(32)]
-        self.assertEqual(1, len(blocks))
+class Project:
+    def __init__(self):
+        self.nodes = {}
+        self.output = {}
 
-    def test_block_sise_64x64(self):
-        image = SourceImage(64, 64)
-        blocks = [x for x in image.generate_blocks(32)]
-        self.assertEqual(4, len(blocks))
+    def load_json(self, path):
+        with open(path) as f:
+            data = json.load(f)
+            self.nodes = create_nodes(data)
+            self.output = create_output(data, self.nodes)

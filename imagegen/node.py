@@ -1,3 +1,19 @@
+"""
+Copyright 2016 nfactorial
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+"""
+
 from parameter import Parameter
 
 
@@ -25,13 +41,17 @@ class Node:
             self.origin = (desc['origin'][0], desc['origin'][1])
         else:
             self.origin = (0.0, 0.0)
+        if 'rotation' in desc:
+            self.rotation = desc['rotation']
+        else:
+            self.rotation = 0.0
         if 'scaling' in desc:
             self.scaling = (desc['scaling'][0], desc['scaling'][1])
         else:
             self.scaling = (1.0, 1.0)
         if 'params' in desc:
             for p in desc['params']:
-                if p.name in self.params:
-                    self.params[p.name].read_json(p)
+                if p['name'] in self.params:
+                    self.params[p['name']].read_json(p)
                 else:
-                    print('Warn: Parameter \'' + p.name + '\' does not exist in node type \'' + self.definition.name + '\'.')
+                    print('Warn: Parameter \'' + p['name'] + '\' does not exist in node type \'' + self.definition.name + '\'.')

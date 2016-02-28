@@ -11,13 +11,13 @@
 		{
 			"name": "checker",
 			"type": "checker",
-			"param": [
+			"params": [
 				{
-					"name": "colorA",
+					"name": "color_a",
 					"rgb": [ 0.0, 0.0, 0.0 ]
 				},
 				{
-					"name": "colorB",
+					"name": "color_b",
 					"rgb": [ 1.0, 1.0, 1.0 ]
 				}
 			]
@@ -25,10 +25,10 @@
 		{
 			"name": "circle",
 			"type": "circle",
-			"param": [
+			"params": [
 				{
 					"name": "color",
-					"rgb": [ 0.0, 0.0, 0.0 ]
+					"rgb": [ 0.2, 0.5, 0.4 ]
 				},
 				{
 					"name": "inner_radius",
@@ -45,12 +45,15 @@
 			]
 		}
 	],
-	"output": {
-		"type": "png",
-		"width": 256,
-		"height": 256,
-		"format": "RGB",
-		"sampler": "default",
-		"diffuseNode": "ring"
-	}
+	"output": [
+		{
+            "name": "ring_checker",
+			"type": "png",
+			"width": 256,
+			"height": 256,
+			"format": "RGB",
+			"sampler": "default",
+            "node": "circle"
+		}
+	]
 }

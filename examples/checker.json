@@ -11,24 +11,27 @@
 		{
 			"name": "checker",
 			"type": "checker",
-			"param": [
+			"params": [
 				{
 					"name": "color_a",
-					"rgb": [ 0.0, 0.0, 0.0 ]
+					"rgb": [ 1.0, 1.0, 1.0 ]
 				},
 				{
 					"name": "color_b",
-					"rgb": [ 1.0, 1.0, 1.0 ]
+					"rgb": [ 0.0, 0.0, 0.0 ]
 				}
 			]
 		}
 	],
-	"output": {
-		"type": "png",
-		"width": 256,
-		"height": 256,
-		"format": "RGB",
-		"sampler": "default",
-		"diffuseNode": "checker"
-	}
+	"output": [
+		{
+            "name": "checker",
+			"type": "png",
+			"width": 256,
+			"height": 256,
+			"format": "RGB",
+			"sampler": "default",
+            "node": "checker"
+		}
+	]
 }
