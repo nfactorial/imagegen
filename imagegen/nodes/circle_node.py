@@ -16,9 +16,9 @@ limitations under the License.
 
 import math
 
-from imagegen.color import Color
-from imagegen.node_registry import register_node
-from imagegen.parameter import ParameterDefinition
+from ..color import Color
+from ..node_registry import register_node
+from ..parameter import ParameterDefinition
 
 circle_input = [
     ParameterDefinition('background', param_type='color', default_value=Color(red=0.0, green=0.0, blue=0.0, alpha=1.0)),
