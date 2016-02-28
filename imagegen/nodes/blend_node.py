@@ -14,34 +14,26 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-import math
-
 from ..color import Color
 from ..parameter import ParameterDefinition
 from ..node_registry import register_node
 
-checkerboard_input = [
+blend_input = [
     ParameterDefinition('color_a', param_type='color', default_value=Color(red=0.0, green=0.0, blue=0.0, alpha=1.0)),
-    ParameterDefinition('color_b', param_type='color', default_value=Color(red=1.0, green=1.0, blue=1.0, alpha=1.0))
+    ParameterDefinition('color_b', param_type='color', default_value=Color(red=1.0, green=1.0, blue=1.0, alpha=1.0)),
+    ParameterDefinition('t', param_type='scalar', default_value=0.5)
 ]
 
 
-def evaluate_checkerboard(eval_info):
+def evaluate_blend(eval_info):
     """
-    Computes the color of a sample within a checker pattern.
+    Computes the blend of two colors given an interpolation value.
     :param eval_info: Parameters describing the sample currently being evaluated.
     :return: The evaluated color at the supplied sample location.
     """
-    x = math.fmod(eval_info.x if eval_info.x >= 0.0 else math.fabs(eval_info.x - 0.5), 1.0)
-    y = math.fmod(eval_info.y if eval_info.y >= 0.0 else math.fabs(eval_info.y - 0.5), 1.0)
-    if x < 0.5:
-        if y > 0.5:
-            return eval_info.evaluate('color_b', x / 0.5, (y - 0.5) / 0.5)
-        return eval_info.evaluate('color_a', x / 0.5, y / 0.5)
+    color_a = eval_info.evaluate('color_a', eval_info.x, eval_info.y)
+    color_b = eval_info.evaluate('color_b', eval_info.x, eval_info.y)
+    return color_a.lerp(color_b, eval_info.evaluate('t', eval_info.x, eval_info.y))
 
-    if y < 0.5:
-        return eval_info.evaluate('color_b', (x - 0.5) / 0.5, y / 0.5)
-    return eval_info.evaluate('color_a', (x - 0.5) / 0.5, (y - 0.5) / 0.5)
-
-register_node('checker', evaluate_checkerboard, checkerboard_input, output='color',
-              description='Creates a pattern of squares using two colors.')
+register_node('blend', evaluate_blend, blend_input, output='color',
+              description='Blends between two color values based on an interpolation value.')

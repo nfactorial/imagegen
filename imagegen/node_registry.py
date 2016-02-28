@@ -18,7 +18,7 @@ from node import Node
 from collections import namedtuple
 
 # This tuple describes a registered node within the application.
-NodeDefinition = namedtuple('NodeDefinition', ['name', 'evaluate', 'input', 'output'])
+NodeDefinition = namedtuple('NodeDefinition', ['name', 'evaluate', 'input', 'output', 'description'])
 
 
 # This dictionary contains all the nodes currently registered
@@ -44,19 +44,19 @@ class NodeExistsError(Exception):
         return 'The node \'' + self.name + '\' already exists within the registry.'
 
 
-def register_node(name, eval_func, input_args, output=None):
+def register_node(name, eval_func, input_args, output=None, description=None):
     """
     Attempts to register a new node with the node registry.
     :param name: Name of the node being registered.
     :param eval_func: The function to be invoked when the node contents should be evaluated.
     :param input_args: The parameters the node requires to compute its result.
     :param output: The parameter the node will compute.
-    :return:
+    :param description: Descriptive text for the node.
     """
     if name in imagegen_node_registry:
         raise NodeExistsError(name)
 
-    imagegen_node_registry[name] = NodeDefinition(name, eval_func, input_args, output)
+    imagegen_node_registry[name] = NodeDefinition(name, eval_func, input_args, output, description)
 
 
 def create_node(name, node_type):

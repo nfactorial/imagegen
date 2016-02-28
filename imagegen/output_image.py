@@ -45,6 +45,22 @@ class OutputImage:
         """
         self.image.save(path)
 
+    @property
+    def width(self):
+        """
+        Retrieves the width of the image in pixels.
+        :return: The width of the image in pixels.
+        """
+        return self.size[0]
+
+    @property
+    def height(self):
+        """
+        Retrieves the height of the image in pixels.
+        :return: The height of the image in pixels.
+        """
+        return self.size[1]
+
     def set_pixel(self, pos, color):
         """
         Sets the color of a specified pixel within the image.
@@ -63,6 +79,6 @@ class OutputImage:
         while x < self.size[0]:
             y = 0
             while y < self.size[1]:
-                yield ImageBlock((x, y), (min(block_size, self.size[0] - x), min(block_size, self.size[1] - y)), self.size)
+                yield ImageBlock(self, (x, y), (min(block_size, self.size[0] - x), min(block_size, self.size[1] - y)))
                 y += block_size
             x += block_size

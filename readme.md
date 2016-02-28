@@ -13,10 +13,28 @@ Imagegen requires an image definition file to be supplied, this file is a JSON f
 the image you wish to be generated. Some simple examples are included inside the examples folder. Once you have
 an image definition file, you may run imagegen from the command line:
 
-python imagegen -f {filename}
+```
+python -m imagegen -f {filename}
+```
 
 Where you must specify the filename of your definition file in place of the {filename}. Imagegen will then load
 the json data and produce the output images.
+
+To obtain a list of the nodes available in the current version of imagegen, we can ask it to list them from the
+command line:
+
+```
+python -m imagegen -nodes
+```
+
+Nodes will be described later in this document.
+
+PERFORMANCE
+===========
+Imagegen currently performs all evaluation on the CPU and thus performance is restricted to the speed of the host
+processor. This means imagegen is really only suitable for offline processing, however once the framework has
+stabilised I will be looking into moving as much processing to the GPU where possible. The intent being to have
+most or all processing on the GPU with the CPU as a fallback.
 
 EXAMPLES
 ========
@@ -70,9 +88,3 @@ OUTPUT
 Imagegen is capable of outputting multiple images from a single graph, the image results are defined by the
 output node. This allows a imagegen to compute various attributes of a particular image, such as diffuse,
 specular and normal maps. Making it suitable for offline generation of textures for use within a 3D application.
-
-PERFORMANCE
-===========
-Imagegen currently performs all evaluation on the CPU and thus performance is restricted to the speed of the host
-processor. This means imagegen is really only suitable for offline processing, however once the framework has
-stabilised I will be looking into moving as much processing to the GPU where possible.

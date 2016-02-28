@@ -24,14 +24,14 @@ class ImageBlock:
     Represents a rectangular subset of pixels within an image.
     Used to specify which pixels a particular task should be generating.
     """
-    def __init__(self, pos, size, image_size):
+    def __init__(self, image, pos, size):
         """
         :param pos: The pixel position within the image where the top left of the image block begins.
         :param size: Tuple containing the width and height (in pixels) of the image block.
         """
+        self.image = image
         self.pos = pos
         self.size = size
-        self.image_size = image_size
 
     @property
     def x(self):
@@ -74,10 +74,9 @@ class ImageBlock:
             for x in range(self.size[0]):
                 yield (self.pos[0] + x, self.pos[1] + y)
 
-    def execute(self, image, output):
+    def execute(self, output):
         """
         Evaluates the color of each pixel contained within this image block.
-        :param image: The image whose content we're evaluating.
         :param output: The output node we're performing the evaluation for.
         """
         # TODO: The sampler will be specified in the definition file
@@ -85,7 +84,7 @@ class ImageBlock:
 
         eval_info = EvalInfo(output.node)
         for pixel in self.next_pixel():
-            image.set_pixel(pixel, self.evaluate_pixel(pixel, eval_info, sampler))
+            self.image.set_pixel(pixel, self.evaluate_pixel(pixel, eval_info, sampler))
 
     def evaluate_pixel(self, pixel, info, sampler):
         """
@@ -98,8 +97,23 @@ class ImageBlock:
         # TODO: Move color object into info, so we don't need to construct one all the time?
         color = Color()
         for info.x, info.y in sampler.next_sample(pixel):
-            info.x /= self.image_size[0]
-            info.y /= self.image_size[1]
+            info.x /= self.image.width
+            info.y /= self.image.height
             color += info.node.evaluate(info)
-
         return color / len(sampler)
+
+
+def execute_block(block, output):
+    """
+    Evaluates the color of each pixel contained within this image block.
+    This method is part of an investigation into using multiple process as should not be used outside of
+    that context.
+    :param block: The block whose content is to be evaluated.
+    :param output: The output node we're performing the evaluation for.
+    """
+    # TODO: The sampler will be specified in the definition file
+    sampler = SamplerBase(1, 1, (1.0, 1.0))
+
+    eval_info = EvalInfo(output.node)
+    for pixel in block.next_pixel():
+        block.image.set_pixel(pixel, block.evaluate_pixel(pixel, eval_info, sampler))

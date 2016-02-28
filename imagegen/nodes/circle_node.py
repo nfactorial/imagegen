@@ -42,4 +42,5 @@ def evaluate_circle(eval_info):
         return eval_info.evaluate('color', eval_info.x, eval_info.y)
     return eval_info.evaluate('background', eval_info.x, eval_info.y)
 
-register_node('circle', evaluate_circle, circle_input, output='color')
+register_node('circle', evaluate_circle, circle_input, output='color',
+              description='Draws a circle with a given inner and outer radius.')
