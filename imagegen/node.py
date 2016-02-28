@@ -37,6 +37,10 @@ class Node:
         self.output = definition.output
 
     def read_json(self, desc):
+        """
+        Reads all properties for the node that have been defined within the supplied JSON data.
+        :param desc: JSON data describing the nodes properties.
+        """
         if 'origin' in desc:
             self.origin = (desc['origin'][0], desc['origin'][1])
         else:
