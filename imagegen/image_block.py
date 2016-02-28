@@ -16,6 +16,7 @@ limitations under the License.
 
 from .color import Color
 from .eval_info import EvalInfo
+from .math_help import rotate_origin
 from .sampler_base import SamplerBase
 from .stochastic_sampler import StochasticSampler
 
@@ -99,8 +100,10 @@ class ImageBlock:
         # TODO: Move color object into info, so we don't need to construct one all the time?
         color = Color()
         for info.x, info.y in sampler.next_sample(pixel):
-            info.x /= self.image.width
-            info.y /= self.image.height
+            info.x, info.y = rotate_origin((info.x / self.image.width * info.node.scaling[0],
+                                            info.y / self.image.height * info.node.scaling[1]),
+                                           (0.5, 0.5),      # TODO: Retrieve origin from node
+                                           info.node.rotation)
             color += info.node.evaluate(info)
         return color / len(sampler)
 

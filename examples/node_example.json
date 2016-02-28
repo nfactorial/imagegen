@@ -1,0 +1,53 @@
+{
+	"metaData": {
+		"content": "imagegen",
+		"version": "0.01",
+		"description": [
+			"This example file defines an image generation that results in ring with a checkerboard background image that has been scaled.",
+			"We can change the colors that form the checkerboard by altering the values for color_a and color_b in the checker node."
+		]
+	},
+	"nodes": [
+		{
+			"name": "checker",
+			"type": "checker",
+            "rotation": 2.0,
+			"scaling": [ 4.0, 4.0 ],
+			"params": [
+				{
+					"name": "color_a",
+                    "bind": "circle"
+				},
+				{
+					"name": "color_b",
+                    "rgb": [ 0.85, 0.45, 0.74 ]
+				}
+			]
+		},
+		{
+			"name": "circle",
+			"type": "circle",
+			"params": [
+				{
+					"name": "color",
+					"rgb": [ 0.85, 0.56, 0.45 ]
+				},
+				{
+					"name": "background",
+					"rgb": [ 0.45, 0.80, 0.85 ]
+				}
+			]
+		}
+	],
+	"output": [
+		{
+            "name": "checker_circle",
+			"type": "png",
+			"width": 256,
+			"height": 256,
+			"format": "RGB",
+			"sampler": "default",
+            "node": "checker"
+		}
+    ]
+}
