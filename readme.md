@@ -90,6 +90,15 @@ results in the following output:
 
 ![Checkerboard with circle example](/images/checker_circle.png)
 
+We can also adjust the scaling of the checkerboard pattern, which creates a more complicated image for very little
+work:
+
+![Checkerboard with circle and scale example](/images/checker_circle2.png)
+
+And we can adjust the rotation of the checkerboard node by setting its rotation property:
+
+![Checkerboard with circle, scale and rotation example](/images/checker_circle3.png)
+
 OUTPUT
 ======
 Imagegen is capable of outputting multiple images from a single graph, the image results are defined by the
