@@ -31,7 +31,7 @@ To obtain a list of the nodes available in the current version of imagegen, we c
 command line:
 
 ```
-python -m imagegen -nodes
+python -m imagegen --nodes
 ```
 
 Nodes will be described later in this document.
