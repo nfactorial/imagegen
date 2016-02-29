@@ -21,6 +21,7 @@ from imagegen.color import Color
 from imagegen.node_registry import register_node, unregister_node, create_node, NodeExistsError
 from imagegen.parameter import ParameterDefinition
 
+TEST_OUTPUT = 'Color'
 TEST_INPUT = [
     ParameterDefinition('background',
                         param_type='color',
@@ -31,7 +32,6 @@ TEST_INPUT = [
 ]
 
 INVALID_NODE_TYPE = 'unittest.invalid.node.type'
-TEST_NODE_OUTPUT = 'Color'
 TEST_NODE_TYPE = 'TestNode'
 TEST_NODE_NAME = 'Testing'
 
@@ -48,18 +48,18 @@ class TestRegistration(unittest.TestCase):
     moving onto the unit tests that make use of these functions.
     """
     def test_register(self):
-        register_node(TEST_NODE_TYPE, evaluate_test, TEST_INPUT, output=TEST_NODE_OUTPUT)
+        register_node(TEST_NODE_TYPE, evaluate_test, TEST_INPUT, output=TEST_OUTPUT)
         self.assertRaises(NodeExistsError,
                           register_node, TEST_NODE_TYPE, evaluate_test, TEST_INPUT,
-                          output=TEST_NODE_OUTPUT)
+                          output=TEST_OUTPUT)
         unregister_node(TEST_NODE_TYPE)
-        register_node(TEST_NODE_TYPE, evaluate_test, TEST_INPUT, output=TEST_NODE_OUTPUT)
+        register_node(TEST_NODE_TYPE, evaluate_test, TEST_INPUT, output=TEST_OUTPUT)
         unregister_node(TEST_NODE_TYPE)
 
 
 class TestNodeRegistry(unittest.TestCase):
     def setUp(self):
-        register_node(TEST_NODE_TYPE, evaluate_test, TEST_INPUT, output=TEST_NODE_OUTPUT)
+        register_node(TEST_NODE_TYPE, evaluate_test, TEST_INPUT, output=TEST_OUTPUT)
 
     def tearDown(self):
         unregister_node(TEST_NODE_TYPE)

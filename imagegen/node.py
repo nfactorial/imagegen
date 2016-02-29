@@ -26,7 +26,8 @@ class Node:
     def __init__(self, name, definition):
         """
         Prepares the node for use by the application.
-        :param definition: The NodeDefinition which describes the node we're representing.
+        :param definition: The NodeDefinition (see node_registry.py) named tuple
+                           which describes the node we're representing.
         """
         self.name = name
         self.rotation = 0.0
