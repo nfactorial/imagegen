@@ -110,7 +110,7 @@ NOISE
 An important part of procedural image generation is the noise primitive. Imagegen provides support for noise
 generation using the noise library (https://pypi.python.org/pypi/noise/). However, I'm still in the process of
 determining how the nodes are to be exposed (as well as which noise functions). Please be aware that the
-definition of the noise ndoes may change in the short term future. Once they have become more concrete this
+definition of the noise nodes may change in the short term future. Once they have become more concrete this
 documentation will be updated. An example noise image generated using imagegen can be seen below, this image
 was generated using the JSON definition found inside the examples folder (examples/noise_test.json).
 
