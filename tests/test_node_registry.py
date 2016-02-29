@@ -17,16 +17,20 @@ limitations under the License.
 import unittest
 
 from imagegen.color import Color
-from imagegen.node_registry import register_node
+from imagegen.node_registry import register_node, NodeExistsError
 from imagegen.parameter import ParameterDefinition
 
-test_input = [
+TEST_INPUT = [
     ParameterDefinition('background', param_type='color', default_value=Color(red=0.0, green=0.0, blue=0.0, alpha=1.0)),
     ParameterDefinition('color', param_type='color', default_value=Color(red=1.0, green=1.0, blue=1.0, alpha=1.0)),
 ]
 
 
+def evaluate_test(eval_info):
+    return Color()
+
+
 class TestNodeRegistry(unittest.TestCase):
     def test_register(self):
-        register_node('TestNode', test_input, output='color')
-        self.failureException(register_node('TestNode', test_input, output='color'))
+        register_node('TestNode', evaluate_test, TEST_INPUT, output='color')
+        self.assertRaises(NodeExistsError, register_node, 'TestNode', evaluate_test, TEST_INPUT, output='color')
