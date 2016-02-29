@@ -104,3 +104,15 @@ OUTPUT
 Imagegen is capable of outputting multiple images from a single graph, the image results are defined by the
 output node. This allows imagegen to compute various attributes of a particular image, such as diffuse,
 specular and normal maps. Making it suitable for offline generation of textures for use within a 3D application.
+
+NOISE
+=====
+An important part of procedural image generation is the noise primitive. Imagegen provides support for noise
+generation using the noise library (https://pypi.python.org/pypi/noise/). However, I'm still in the process of
+determining how the nodes are to be exposed (as well as which noise functions). Please be aware that the
+definition of the noise ndoes may change in the short term future. Once they have become more concrete this
+documentation will be updated. An example noise image generated using imagegen can be seen below, this image
+was generated using the JSON definition found inside the examples folder (examples/noise_test.json).
+
+![Noise Example](/images/noise_a.png)
+
