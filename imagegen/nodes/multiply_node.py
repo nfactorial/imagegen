@@ -18,28 +18,28 @@ from ..color import Color
 from ..parameter import ParameterDefinition
 from ..node_registry import register_node
 
-BLEND_INPUT = [
-    ParameterDefinition('color_a',
+MULTIPLY_INPUT = [
+    ParameterDefinition('a',
                         param_type='color',
                         default_value=Color(red=0.0, green=0.0, blue=0.0, alpha=1.0)),
-    ParameterDefinition('color_b',
+    ParameterDefinition('b',
                         param_type='color',
                         default_value=Color(red=1.0, green=1.0, blue=1.0, alpha=1.0)),
-    ParameterDefinition('t',
-                        param_type='scalar',
-                        default_value=0.5)
 ]
 
 
-def evaluate_blend(eval_info):
+def evaluate_multiply(eval_info):
     """
-    Computes the blend of two colors given an interpolation value.
+    Multiplies two color values together and returns the result.
     :param eval_info: Parameters describing the sample currently being evaluated.
     :return: The evaluated color at the supplied sample location.
     """
     color_a = eval_info.evaluate('color_a', eval_info.x, eval_info.y)
     color_b = eval_info.evaluate('color_b', eval_info.x, eval_info.y)
-    return color_a.lerp(color_b, eval_info.evaluate('t', eval_info.x, eval_info.y))
+    return Color(red=color_a.red * color_b.red,
+                 green=color_a.green * color_b.green,
+                 blue=color_a.blue * color_b.blue,
+                 alpha=color_a.alpha * color_b.alpha)
 
-register_node('blend', evaluate_blend, BLEND_INPUT, output='color',
-              description='Blends between two colors based on an interpolation value.')
+register_node('multiply', evaluate_multiply, MULTIPLY_INPUT, output='color',
+              description='Multiplies two color values together.')
