@@ -1,83 +1,109 @@
 {
-	"metaData": {
-		"content": "imagegen",
-		"version": "0.01",
-		"description": [
-			"This example file defines an image generation that results in ring with a checkerboard background image that has been scaled.",
-			"We can change the colors that form the checkerboard by altering the values for color_a and color_b in the checker node."
-		]
-	},
-	"nodes": [
-		{
-			"name": "checker",
-			"type": "checker",
+    "metaData": {
+        "content": "imagegen",
+        "version": "0.01",
+        "description": [
+            "This example file defines an image generation that results in ring with a checkerboard background image that has been scaled.",
+            "We can change the colors that form the checkerboard by altering the values for color_a and color_b in the checker node."
+        ]
+    },
+    "nodes": [
+        {
+            "name": "checker",
+            "type": "checker",
             "rotation": 2.0,
-			"scaling": [ 3.0, 3.0 ],
-			"params": [
-				{
-					"name": "color_a",
+            "scaling": [
+                3.0,
+                3.0
+            ],
+            "params": [
+                {
+                    "name": "color_a",
                     "bind": "circle1"
-				},
-				{
-					"name": "color_b",
+                },
+                {
+                    "name": "color_b",
                     "bind": "circle2"
-				}
-			]
-		},
-		{
-			"name": "checker2",
-			"type": "checker",
+                }
+            ]
+        },
+        {
+            "name": "checker2",
+            "type": "checker",
             "rotation": 0.0,
-			"scaling": [ 2.0, 2.0 ],
-			"params": [
-				{
-					"name": "color_a",
-                    "rgb": [ 0.5, 0.1, 0.2 ]
-				},
-				{
-					"name": "color_b",
-                    "rgb": [ 0.3, 0.5, 0.3 ]
-				}
-			]
-		},
-		{
-			"name": "circle1",
-			"type": "circle",
-			"params": [
-				{
-					"name": "color",
-					"rgb": [ 0.2, 0.6, 0.4 ]
-				},
-				{
-					"name": "background",
-					"bind": "checker2"
-				}
-			]
-		},
-		{
-			"name": "circle2",
-			"type": "circle",
-			"params": [
-				{
-					"name": "color",
-					"rgb": [ 0.6, 0.4, 0.2 ]
-				},
-				{
-					"name": "background",
-					"rgb": [0.2, 0.5, 0.5 ]
-				}
-			]
-		}
-	],
-	"output": [
-		{
+            "scaling": [
+                2.0,
+                2.0
+            ],
+            "params": [
+                {
+                    "name": "color_a",
+                    "rgb": [
+                        0.5,
+                        0.1,
+                        0.2
+                    ]
+                },
+                {
+                    "name": "color_b",
+                    "rgb": [
+                        0.3,
+                        0.5,
+                        0.3
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "circle1",
+            "type": "circle",
+            "params": [
+                {
+                    "name": "color",
+                    "rgb": [
+                        0.2,
+                        0.6,
+                        0.4
+                    ]
+                },
+                {
+                    "name": "background",
+                    "bind": "checker2"
+                }
+            ]
+        },
+        {
+            "name": "circle2",
+            "type": "circle",
+            "params": [
+                {
+                    "name": "color",
+                    "rgb": [
+                        0.6,
+                        0.4,
+                        0.2
+                    ]
+                },
+                {
+                    "name": "background",
+                    "rgb": [
+                        0.2,
+                        0.5,
+                        0.5
+                    ]
+                }
+            ]
+        }
+    ],
+    "output": [
+        {
             "name": "checker_rings",
-			"type": "png",
-			"width": 256,
-			"height": 256,
-			"format": "RGB",
-			"sampler": "default",
+            "type": "png",
+            "width": 256,
+            "height": 256,
+            "format": "RGB",
+            "sampler": "default",
             "node": "checker"
-		}
+        }
     ]
 }
