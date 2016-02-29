@@ -102,5 +102,5 @@ And we can adjust the rotation of the checkerboard node by setting its rotation 
 OUTPUT
 ======
 Imagegen is capable of outputting multiple images from a single graph, the image results are defined by the
-output node. This allows a imagegen to compute various attributes of a particular image, such as diffuse,
+output node. This allows imagegen to compute various attributes of a particular image, such as diffuse,
 specular and normal maps. Making it suitable for offline generation of textures for use within a 3D application.
