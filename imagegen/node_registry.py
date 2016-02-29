@@ -65,6 +65,15 @@ def register_node(name, eval_func, input_args, output=None, description=None):
     NODE_REGISTRY[name] = NodeDefinition(name, eval_func, input_args, output, description)
 
 
+def unregister_node(name):
+    """
+    Removes a registered node from the applications registry.
+    :param name: Name of the node type to be removed.
+    """
+    if name in NODE_REGISTRY:
+        del NODE_REGISTRY[name]
+
+
 def create_node(name, node_type):
     """
     Create an instance of a node associated with the specified name.
