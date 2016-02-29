@@ -11,8 +11,8 @@
 		{
 			"name": "checker",
 			"type": "checker",
-            "rotation": -0.785,
-			"scaling": [ 8.0, 8.0 ],
+            "rotation": 2.0,
+			"scaling": [ 3.0, 3.0 ],
 			"params": [
 				{
 					"name": "color_a",
@@ -27,8 +27,8 @@
 		{
 			"name": "checker2",
 			"type": "checker",
-            "rotation": -0.4,
-			"scaling": [ 8.0, 8.0 ],
+            "rotation": 0.0,
+			"scaling": [ 2.0, 2.0 ],
 			"params": [
 				{
 					"name": "color_a",

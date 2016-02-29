@@ -83,7 +83,7 @@ class ImageBlock:
         """
         # TODO: The sampler will be specified in the definition file
         sampler = SamplerBase(1, 1, (1.0, 1.0))
-        # sampler = StochasticSampler(4, 4, (1.0, 1.0))
+        # sampler = StochasticSampler(6, 6, (1.0, 1.0))
 
         eval_info = EvalInfo(output.node)
         for pixel in self.next_pixel():

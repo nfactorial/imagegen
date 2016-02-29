@@ -32,9 +32,15 @@ class Node:
         self.origin = (0.5, 0.5)
         self.scaling = (1.0, 1.0)
         self.definition = definition
-        self.evaluate = definition.evaluate
         self.params = {p.name: Parameter(p) for p in definition.input}
-        self.output = definition.output
+
+    @property
+    def evaluate(self):
+        return self.definition.evaluate
+
+    @property
+    def output(self):
+        return self.definition.output
 
     def read_json(self, desc):
         """
