@@ -37,4 +37,5 @@ class StochasticSampler(SamplerBase):
         """
         for y in range(self.y_samples):
             for x in range(self.x_samples):
-                yield pos[0] + random.random() * self.pixel_scale[0], pos[1] + random.random() * self.pixel_scale[1]
+                yield pos[0] + random.random() * self.pixel_scale[0], \
+                      pos[1] + random.random() * self.pixel_scale[1]

@@ -28,7 +28,7 @@ class ImageBlock:
     """
     def __init__(self, image, pos, size):
         """
-        :param pos: The pixel position within the image where the top left of the image block begins.
+        :param pos: Tuple contained the x, y position of the image block.
         :param size: Tuple containing the width and height (in pixels) of the image block.
         """
         self.image = image
@@ -111,8 +111,8 @@ class ImageBlock:
 def execute_block(block, output):
     """
     Evaluates the color of each pixel contained within this image block.
-    This method is part of an investigation into using multiple process as should not be used outside of
-    that context.
+    This method is part of an investigation into using multiple processes
+    and should not be used outside of that context.
     :param block: The block whose content is to be evaluated.
     :param output: The output node we're performing the evaluation for.
     """

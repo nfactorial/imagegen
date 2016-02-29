@@ -19,8 +19,9 @@ from .parameter import Parameter
 
 class Node:
     """
-    The node class is used to represent a single step within the generated output. Nodes may be tied together within
-    the generation graph to allow for more complex image generation.
+    The node class is used to represent a single step within the generated output.
+    Nodes may be tied together within the generation graph to allow for more
+    complex image generation.
     """
     def __init__(self, name, definition):
         """
@@ -36,10 +37,16 @@ class Node:
 
     @property
     def evaluate(self):
+        """
+        :return: The evaluation function associated with this node.
+        """
         return self.definition.evaluate
 
     @property
     def output(self):
+        """
+        :return: The output type that is produced by this nodes evaluation.
+        """
         return self.definition.output
 
     def read_json(self, desc):
@@ -64,4 +71,6 @@ class Node:
                 if p['name'] in self.params:
                     self.params[p['name']].read_json(p)
                 else:
-                    print('Warn: Parameter \'' + p['name'] + '\' does not exist in node type \'' + self.definition.name + '\'.')
+                    print('Warn: Parameter \'' + p['name'] +
+                          '\' does not exist in node type \'' +
+                          self.definition.name + '\'.')

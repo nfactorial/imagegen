@@ -39,7 +39,7 @@ def read_color_json(param, desc):
 
 
 # This dictionary maps the parsing function to the parameter types
-json_param_readers = {
+JSON_PARAM_READERS = {
     'scalar': read_scalar_json,
     'color': read_color_json
 }
@@ -48,15 +48,15 @@ json_param_readers = {
 class ParameterDefinition:
     """
     Describes a parameter that is exposed within the application.
-    Parameters are values that may be edited by the user, they may also be connected to the output
-    of a node that computes a compatible value.
-    The ParameterDefinition class is used to describe a parameter, however the Parameter class itself
-    is used to represent an actual instance of a parameter.
+    Parameters are values that may be edited by the user, they may also be connected to
+    the output of a node that computes a compatible value.
+    The ParameterDefinition class is used to describe a parameter, however the Parameter
+    class itself is used to represent an actual instance of a parameter.
     """
     def __init__(self, name, param_type=None, minimum=None, maximum=None, default_value=None):
-        if param_type not in json_param_readers:
+        if param_type not in JSON_PARAM_READERS:
             raise TypeError
-        self.read_json = json_param_readers[param_type]
+        self.read_json = JSON_PARAM_READERS[param_type]
         self.name = name
         self.param_type = param_type
         self.minimum = float('Inf') if minimum is None else minimum

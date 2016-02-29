@@ -14,15 +14,20 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from .node import Node
 from collections import namedtuple
 
+from .node import Node
+
 # This tuple describes a registered node within the application.
-NodeDefinition = namedtuple('NodeDefinition', ['name', 'evaluate', 'input', 'output', 'description'])
+NodeDefinition = namedtuple('NodeDefinition', ['name',
+                                               'evaluate',
+                                               'input',
+                                               'output',
+                                               'description'])
 
 
 # This dictionary contains all the nodes currently registered
-imagegen_node_registry = {}
+NODE_REGISTRY = {}
 
 
 class NodeExistsError(Exception):
@@ -34,6 +39,7 @@ class NodeExistsError(Exception):
         Prepares the exception for use by the application.
         :param name: Name of the node that caused the exception to be raised.
         """
+        super(NodeExistsError, self).__init__(name)
         self.name = name
 
     def __str__(self):
@@ -53,10 +59,10 @@ def register_node(name, eval_func, input_args, output=None, description=None):
     :param output: The parameter the node will compute.
     :param description: Descriptive text for the node.
     """
-    if name in imagegen_node_registry:
+    if name in NODE_REGISTRY:
         raise NodeExistsError(name)
 
-    imagegen_node_registry[name] = NodeDefinition(name, eval_func, input_args, output, description)
+    NODE_REGISTRY[name] = NodeDefinition(name, eval_func, input_args, output, description)
 
 
 def create_node(name, node_type):
@@ -66,6 +72,7 @@ def create_node(name, node_type):
     :param node_type: The type of node to be instantiated.
     :return: The newly created node of the specified type.
     """
-    if node_type in imagegen_node_registry:
-        return Node(name, imagegen_node_registry[node_type])
-    raise TypeError('The specified node type \'' + node_type + '\' could not be found within imagegen.')
+    if node_type in NODE_REGISTRY:
+        return Node(name, NODE_REGISTRY[node_type])
+    raise TypeError('The specified node type \'' + node_type +
+                    '\' could not be found within imagegen.')

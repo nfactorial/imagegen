@@ -18,10 +18,16 @@ from ..color import Color
 from ..parameter import ParameterDefinition
 from ..node_registry import register_node
 
-blend_input = [
-    ParameterDefinition('color_a', param_type='color', default_value=Color(red=0.0, green=0.0, blue=0.0, alpha=1.0)),
-    ParameterDefinition('color_b', param_type='color', default_value=Color(red=1.0, green=1.0, blue=1.0, alpha=1.0)),
-    ParameterDefinition('t', param_type='scalar', default_value=0.5)
+BLEND_INPUT = [
+    ParameterDefinition('color_a',
+                        param_type='color',
+                        default_value=Color(red=0.0, green=0.0, blue=0.0, alpha=1.0)),
+    ParameterDefinition('color_b',
+                        param_type='color',
+                        default_value=Color(red=1.0, green=1.0, blue=1.0, alpha=1.0)),
+    ParameterDefinition('t',
+                        param_type='scalar',
+                        default_value=0.5)
 ]
 
 
@@ -35,5 +41,5 @@ def evaluate_blend(eval_info):
     color_b = eval_info.evaluate('color_b', eval_info.x, eval_info.y)
     return color_a.lerp(color_b, eval_info.evaluate('t', eval_info.x, eval_info.y))
 
-register_node('blend', evaluate_blend, blend_input, output='color',
+register_node('blend', evaluate_blend, BLEND_INPUT, output='color',
               description='Blends between two color values based on an interpolation value.')

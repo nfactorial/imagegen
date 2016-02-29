@@ -56,7 +56,8 @@ def smooth_step(minimum, maximum, x):
     :param minimum: The minimum range of the x parameter.
     :param maximum: The maximum range of the x parameter.
     :param x: The specified value to be interpolated.
-    :return: 0 if x is less than minimum, 1 if x is greater than maximum. Otherwise a value between 0 and 1.
+    :return: 0 if x is less than minimum, 1 if x is greater than maximum.
+             Otherwise a value between 0 and 1.
     """
     x = clamp((x - minimum) / (maximum - minimum), 0.0, 1.0)
     return x * x * x * (x * (x * 6 - 15) + 10)
@@ -77,9 +78,9 @@ def rotate_origin(pos, origin, radians):
     """
     Rotates a two-dimensional vector around a specified origin.
     :param pos: Tuple containing the x and y coordinates of the vector to be rotated.
-    :param origin: Tuple containing the x and y coordinates of the point to be rotated around.
+    :param origin: Tuple containing the x, y coordinates of the point to be rotated around.
     :param radians: Angle (in radians) the vector is to be rotated by.
-    :return: Tuple containing the rotated coordinates of the supplied position around the supplied origin.
+    :return: Tuple containing the rotated coordinates of the supplied position.
     """
     rot = rotate((pos[0] - origin[0], pos[1] - origin[1]), radians)
     return rot[0] + origin[0], rot[1] + origin[1]

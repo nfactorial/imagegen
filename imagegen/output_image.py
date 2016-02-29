@@ -20,8 +20,8 @@ from .image_block import ImageBlock
 
 class OutputImage:
     """
-    This class is used to provide a simple interface for creating and saving an image within the package.
-    Currently we map to PIL (which prevents us running in python 3+) but this will be changed in the near future.
+    This class is used to provide a simple interface for creating
+    and saving an image within the package.
     """
     def __init__(self, width, height):
         """
@@ -67,7 +67,9 @@ class OutputImage:
         :param pos: x,y tuple containing the pixel coordinates to be set.
         :param color: The color to be stored at the specified pixel location.
         """
-        self.image.putpixel(pos, (int(color.red * 255), int(color.green * 255), int(color.blue * 255)))
+        self.image.putpixel(pos, (int(color.red * 255),
+                                  int(color.green * 255),
+                                  int(color.blue * 255)))
 
     def generate_blocks(self, block_size):
         """
@@ -79,6 +81,7 @@ class OutputImage:
         while x < self.size[0]:
             y = 0
             while y < self.size[1]:
-                yield ImageBlock(self, (x, y), (min(block_size, self.size[0] - x), min(block_size, self.size[1] - y)))
+                yield ImageBlock(self, (x, y), (min(block_size, self.size[0] - x),
+                                                min(block_size, self.size[1] - y)))
                 y += block_size
             x += block_size

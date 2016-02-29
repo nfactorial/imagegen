@@ -47,21 +47,21 @@ def generate_output(json_data, nodes):
 
 def resolve_parameters(node, nodes):
     """
-    Given a single node, this method resolves any references to other nodes within the parameter list.
+    Given a single node, this method resolves any references to other nodes
+    within the parameter list.
     :param node: The node whose parameters are to be resolved.
     :param nodes: List of available nodes for binding.
-    :return:
     """
-    for key, p in node.params.items():
-        if p.binding is not None:
-            p.binding = nodes[p.binding]
+    for _, param in node.params.items():
+        if param.binding is not None:
+            param.binding = nodes[param.binding]
 
 
 def resolve_nodes(nodes):
     """
-    Given a list of nodes, this method resolves all the parameters that make reference to other nodes.
+    Given a list of nodes, this method resolves all the parameters that make
+    reference to other nodes.
     :param nodes: List of nodes whose parameters are to be resolved.
-    :return:
     """
     for item in nodes.items():
         resolve_parameters(item[1], nodes)

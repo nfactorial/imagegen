@@ -51,6 +51,8 @@ class EvalInfo:
         p = self.node.params[name]
         if p.binding:
             info = EvalInfo(p.binding)
-            info.x, info.y = rotate_origin((x * p.binding.scaling[0], y * p.binding.scaling[1]), (0.5, 0.5), p.binding.rotation)
+            info.x, info.y = rotate_origin((x * p.binding.scaling[0], y * p.binding.scaling[1]),
+                                           (0.5, 0.5),
+                                           p.binding.rotation)
             return p.binding.evaluate(info)
         return p.current_value

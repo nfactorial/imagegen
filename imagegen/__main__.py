@@ -21,22 +21,27 @@ import argparse
 from .nodes import *
 
 from .project import Project
-from .node_registry import imagegen_node_registry
+from .node_registry import NODE_REGISTRY
 
 """
 Run unit tests with....
 python -m unittest discover tests
 """
 
-parser = argparse.ArgumentParser(description='Imaggen - by nfactorial', prog='imagegen')
-parser.add_argument('-f', dest='filename', required=False,
+parser = argparse.ArgumentParser(description='Imaggen - by nfactorial',
+                                 prog='imagegen')
+parser.add_argument('-f',
+                    dest='filename',
+                    required=False,
                     help='The filename of the JSON definition file containing the image to be generated.')
-parser.add_argument('--nodes', action='store_true', help='List all the nodes available within the imagegen distribution.')
+parser.add_argument('--nodes',
+                    action='store_true',
+                    help='List all the nodes available within the imagegen distribution.')
 args = parser.parse_args()
 
 if args.nodes:
     print('Available nodes: ')
-    for key, value in imagegen_node_registry.items():
+    for key, value in NODE_REGISTRY.items():
         if value.description:
             print('\t' + key + ' - ' + value.description)
         else:
