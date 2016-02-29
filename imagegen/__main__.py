@@ -39,7 +39,7 @@ parser.add_argument('--nodes',
                     help='List all the nodes available within the imagegen distribution.')
 parser.add_argument('-job',
                     type=int,
-                    help='The number of pixels to processed by each job.')
+                    help='The number of pixels to be processed by each job.')
 args = parser.parse_args()
 
 DEFAULT_JOB_SIZE = 32
