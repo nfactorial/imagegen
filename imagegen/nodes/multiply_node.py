@@ -34,8 +34,8 @@ def evaluate_multiply(eval_info):
     :param eval_info: Parameters describing the sample currently being evaluated.
     :return: The evaluated color at the supplied sample location.
     """
-    color_a = eval_info.evaluate('color_a', eval_info.x, eval_info.y)
-    color_b = eval_info.evaluate('color_b', eval_info.x, eval_info.y)
+    color_a = eval_info.evaluate('a', eval_info.x, eval_info.y)
+    color_b = eval_info.evaluate('b', eval_info.x, eval_info.y)
     return Color(red=color_a.red * color_b.red,
                  green=color_a.green * color_b.green,
                  blue=color_a.blue * color_b.blue,
