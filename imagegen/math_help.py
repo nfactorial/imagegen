@@ -25,7 +25,7 @@ def lerp(a, b, t):
     :param t: A value between 0 and 1 which defines the position of the interpolated result.
     :return: The result of the linear interpolation.
     """
-    return a + (b - a) * t
+    return a + t * (b - a)
 
 
 def clamp(a, minimum, maximum):

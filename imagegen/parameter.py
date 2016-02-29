@@ -29,6 +29,18 @@ def read_scalar_json(param, desc):
         param.current_value = param.definition.default_value
 
 
+def read_int_json(param, desc):
+    """
+    Reads the integer parameter value from the supplied json data.
+    :param param: The parameter whose value is being read.
+    :param desc: Json description of the parameter.
+    """
+    if 'value' in desc:
+        param.current_value = int(desc['value'])
+    else:
+        param.current_value = param.definition.default_value
+
+
 def read_color_json(param, desc):
     """
     Reads the color parameter value from the supplied json data.
@@ -41,7 +53,8 @@ def read_color_json(param, desc):
 # This dictionary maps the parsing function to the parameter types
 JSON_PARAM_READERS = {
     'scalar': read_scalar_json,
-    'color': read_color_json
+    'color': read_color_json,
+    'int': read_int_json
 }
 
 

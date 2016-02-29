@@ -55,6 +55,30 @@
             ]
         },
         {
+            "name": "multiply",
+            "type": "multiply",
+            "params": [
+                {
+                    "name": "a",
+                    "bind": "noise"
+                },
+                {
+                    "name": "b",
+                    "bind": "checker"
+                }
+            ]
+        },
+        {
+            "name": "noise",
+            "type": "noise",
+            "params": [
+                {
+                    "name": "octaves",
+                    "value": 6
+                }
+            ]
+        },
+        {
             "name": "circle1",
             "type": "circle",
             "params": [
@@ -103,7 +127,7 @@
             "height": 256,
             "format": "RGB",
             "sampler": "default",
-            "node": "checker"
+            "node": "multiply"
         }
     ]
 }

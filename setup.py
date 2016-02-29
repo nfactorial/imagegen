@@ -24,4 +24,7 @@ setup(name='imagegen',
       author='nfactorial',
       author_email='nfactorial@btopenorld.com',
       url='https://github.com/nfactorial/imagegen',
-      packages=['imagegen'])
+      packages=['imagegen'],
+      install_requires=[
+            'noise'
+      ])

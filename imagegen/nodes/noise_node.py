@@ -14,3 +14,30 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
+import math
+import noise
+
+from ..color import Color
+from ..parameter import ParameterDefinition
+from ..node_registry import register_node
+
+NOISE_INPUT = [
+    ParameterDefinition('octaves',
+                        param_type='int',
+                        default_value=1)
+]
+
+
+def evaluate_noise(eval_info):
+    """
+    :param eval_info: Parameters describing the sample currently being evaluated.
+    :return: The evaluated value at the supplied sample location.
+    """
+    octaves = eval_info.evaluate('octaves', eval_info.x, eval_info.y)
+    frequency = 1.0 / octaves
+    pnoise = noise.pnoise2(eval_info.x / frequency, eval_info.y / frequency, octaves=octaves)
+    pnoise = 0.5 + pnoise / 2.0
+    return Color(pnoise, pnoise, pnoise, pnoise)
+
+register_node('noise', evaluate_noise, NOISE_INPUT, output='color',
+              description='Generates a random 2D noise value.')

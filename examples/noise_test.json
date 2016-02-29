@@ -1,0 +1,32 @@
+{
+    "metaData": {
+        "content": "imagegen",
+        "version": "0.01",
+        "description": [
+            "This example file defines a simple image that consists of a raw output from a noise node."
+        ]
+    },
+    "nodes": [
+        {
+            "name": "noise",
+            "type": "noise",
+            "params": [
+                {
+                    "name": "octaves",
+                    "value": 4
+                }
+            ]
+        }
+    ],
+    "output": [
+        {
+            "name": "noise",
+            "type": "png",
+            "width": 256,
+            "height": 256,
+            "format": "RGB",
+            "sampler": "default",
+            "node": "noise"
+        }
+    ]
+}
