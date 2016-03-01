@@ -5,8 +5,8 @@ in a game engine. The resulting texture image will look as follows:
 
 ![Smoke Particle Example](images/smoke_particle1.png)
 
-Creating JSON
-=============
+Defining the Image
+==================
 Create a new text file and name it something like 'smoke.json'. Open the file in a text editor, first of all we
 must specify the output that we desire imagegen to produce. Although we only require a single image to be generated
 For this example, imagegen is capable of producing multiple images from a single definition file. Thus the output
