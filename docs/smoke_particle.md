@@ -191,7 +191,7 @@ Executing imagegen with this updated JSON should result in the following output:
 ![Circle Example](images/smoke_tutorial_3.png)
 
 Somehow we must now combine the circle with the noise texture we produced earlier. To support this, imagegen allows
-parameter values for a node to be bound to another node in the project as long as the nodes output matched the
+parameter values for a node to be bound to another nodes output, as long as the nodes output matches the
 data type associated with a parameter. The noise node outputs a color value which means we can attach it to either
 the background property or the color property. To bind a node to a parameter, we must remove the constant value we
 specified and replace it a "bind" property. This property must specify the name of the node from where you would
@@ -205,13 +205,14 @@ its definition like so:
     }
 ```
 
+This informs imagegen that in-order to obtain the color of the circle, it must ask the noise node for its value.
 Running imagegen once again results in the following output:
 
 ![Circle Noise Example](images/smoke_tutorial_4.png)
 
 This is much closer to what we are looking for! However, it has a very hard edge that we would like to get rid of.
 The circle node actually has yet another parameter that we can modify called "hardness", this parameter controls
-how hard the outer edge of the circle should be. This value can range between 0 and 1 where 1 means there is no
+how hard the outer edge of the circle should be. This value can range between 0 and 1, where 1 means there is no
 softness to the edge and 0 is very soft. Once again let us add this new parameter to our JSON file and set its
 value to 0.
 
