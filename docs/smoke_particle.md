@@ -190,7 +190,7 @@ Executing imagegen with this updated JSON should result in the following output:
 
 ![Circle Example](images/smoke_tutorial_3.png)
 
-Somehow we much now combine the circle with the noise texture we produced earlier. To support this, imagegen allows
+Somehow we must now combine the circle with the noise texture we produced earlier. To support this, imagegen allows
 parameter values for a node to be bound to another node in the project as long as the nodes output matched the
 data type associated with a parameter. The noise node outputs a color value which means we can attach it to either
 the background property or the color property. To bind a node to a parameter, we must remove the constant value we
