@@ -1,0 +1,60 @@
+{
+	"metaData": {
+		"content": "imagegen",
+		"version": "0.01",
+		"description": [
+			"This example file defines a simple image generation that results in an image suitable for use as",
+            "smoke within a video-game."
+		]
+	},
+	"nodes": [
+		{
+			"name": "noise",
+			"type": "noise",
+            "scaling": [ 0.8, 0.8 ],
+			"params": [
+				{
+					"name": "octaves",
+					"value": 6
+				}
+			]
+		},
+        {
+            "name": "circle",
+            "type": "circle",
+            "params": [
+                {
+                    "name": "inner_radius",
+                    "value": 0.0
+                },
+                {
+                    "name": "outer_radius",
+                    "value": 0.48
+                },
+                {
+                    "name": "background",
+                    "rgb": [ 0.0, 0.0, 0.0 ]
+                },
+                {
+                    "name": "color",
+                    "bind": "noise"
+                },
+                {
+                    "name": "hardness",
+                    "value": 0.0
+                }
+            ]
+        }
+	],
+	"output": [
+		{
+            "name": "smoke_example",
+			"type": "png",
+			"width": 128,
+			"height": 128,
+			"format": "RGB",
+			"sampler": "default",
+            "node": "circle"
+		}
+	]
+}

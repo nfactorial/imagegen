@@ -28,6 +28,17 @@ def lerp(a, b, t):
     return a + t * (b - a)
 
 
+def min_max(a, b):
+    """
+    Given two values, this method returns a tuple where the first element is the lower
+    of the two values and the second element is the highest.
+    :param a:
+    :param b:
+    :return: a, b if a is less than b otherwise b, a
+    """
+    return (a, b) if a < b else (b, a)
+
+
 def clamp(a, minimum, maximum):
     """
     Clamps the specified value to the minimum and maximum range.

@@ -17,6 +17,7 @@ limitations under the License.
 import math
 
 from ..color import Color
+from ..math_help import smooth_step, min_max
 from ..node_registry import register_node
 from ..parameter import ParameterDefinition
 
@@ -36,7 +37,12 @@ CIRCLE_INPUT = [
                         param_type='scalar',
                         minimum=0.0,
                         maximum=1.0,
-                        default_value=0.35)
+                        default_value=0.35),
+    ParameterDefinition('hardness',
+                        param_type='scalar',
+                        minimum=0.0,
+                        maximum=1.0,
+                        default_value=1.0)
 ]
 
 
@@ -48,10 +54,14 @@ def evaluate_circle(eval_info):
     """
     x, y = eval_info.x - 0.5, eval_info.y - 0.5
     distance = math.sqrt(x*x + y*y)
-    inner_radius = eval_info.evaluate('inner_radius', eval_info.x, eval_info.y)
-    outer_radius = eval_info.evaluate('outer_radius', eval_info.x, eval_info.y)
+    inner_radius, outer_radius = min_max(eval_info.evaluate('inner_radius', eval_info.x, eval_info.y),
+                                         eval_info.evaluate('outer_radius', eval_info.x, eval_info.y))
+    background = eval_info.evaluate('background', eval_info.x, eval_info.y)
     if inner_radius < distance < outer_radius:
-        return eval_info.evaluate('color', eval_info.x, eval_info.y)
+        hardness = eval_info.evaluate('hardness', eval_info.x, eval_info.y)
+        distance = (distance - inner_radius) / (outer_radius - inner_radius)
+        t = smooth_step(hardness, 1.0, distance) if hardness < 1.0 else 0.0
+        return eval_info.evaluate('color', eval_info.x, eval_info.y).lerp(background, t)
     return eval_info.evaluate('background', eval_info.x, eval_info.y)
 
 register_node('circle', evaluate_circle, CIRCLE_INPUT, output='color',
