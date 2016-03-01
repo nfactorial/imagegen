@@ -1,12 +1,3 @@
-IMAGEGEN
-========
-This python module provides some simple functionality for generating procedural images using Python code.
-
-Images are formed by connecting various nodes within a graph, the module then processes the graph to produce
-the output image. Image graphs are defined within a JSON formatted file.
-
-The main goal of the project is mostly to practice Python with a relatively fun project.
-
 ## Build status
 
 | [Linux][lin-link] |
@@ -15,6 +6,15 @@ The main goal of the project is mostly to practice Python with a relatively fun 
 
 [lin-badge]: https://travis-ci.org/nfactorial/imagegen.svg?branch=master "Travis build status"
 [lin-link]:  https://travis-ci.org/nfactorial/imagegen "Travis build status"
+
+IMAGEGEN
+========
+This python module provides some simple functionality for generating procedural images using Python code.
+
+Images are formed by connecting various nodes within a graph, the module then processes the graph to produce
+the output image. Image graphs are defined within a JSON formatted file.
+
+The main goal of the project is mostly to practice Python with a relatively fun project.
 
 USAGE
 =====
