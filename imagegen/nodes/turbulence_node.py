@@ -24,7 +24,10 @@ from ..node_registry import register_node
 TURBULENCE_INPUT = [
     ParameterDefinition('octaves',
                         param_type='int',
-                        default_value=1)
+                        default_value=1),
+    ParameterDefinition('frequency',
+                        param_type='scalar',
+                        default_value=4.0)
 ]
 
 
@@ -34,8 +37,10 @@ def evaluate_turbulence(eval_info):
     :return: The evaluated value at the supplied sample location.
     """
     octaves = eval_info.evaluate('octaves', eval_info.x, eval_info.y)
-    frequency = 1.0 / 256 * octaves
-    pnoise = noise.pnoise2(eval_info.x / frequency, eval_info.y / frequency, octaves=octaves)
+    frequency = eval_info.evaluate('frequency', eval_info.x, eval_info.y)
+    frequency_x = frequency / eval_info.image_size[0] * octaves
+    frequency_y = frequency / eval_info.image_size[0] * octaves
+    pnoise = noise.pnoise2(eval_info.x / frequency_x, eval_info.y / frequency_y, octaves=octaves)
     pnoise = math.fabs(pnoise)
     return Color(pnoise, pnoise, pnoise, pnoise)
 

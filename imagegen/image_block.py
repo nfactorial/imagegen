@@ -86,6 +86,8 @@ class ImageBlock:
         # sampler = StochasticSampler(6, 6, (1.0, 1.0))
 
         eval_info = EvalInfo(output.node)
+        eval_info.image_size = (output.width, output.height)
+        eval_info.pixel_size = (1.0 / output.width, 1.0 / output.height)
         for pixel in self.next_pixel():
             self.image.set_pixel(pixel, self.evaluate_pixel(pixel, eval_info, sampler))
 
@@ -100,8 +102,8 @@ class ImageBlock:
         # TODO: Move color object into info, so we don't need to construct one all the time?
         color = Color()
         for info.x, info.y in sampler.next_sample(pixel):
-            info.x, info.y = rotate_origin((info.x / self.image.width * info.node.scaling[0],
-                                            info.y / self.image.height * info.node.scaling[1]),
+            info.x, info.y = rotate_origin((info.x * info.pixel_size[0] * info.node.scaling[0],
+                                            info.y * info.pixel_size[1] * info.node.scaling[1]),
                                            (0.5, 0.5),      # TODO: Retrieve origin from node
                                            info.node.rotation)
             color += info.node.evaluate(info)

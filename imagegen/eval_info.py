@@ -29,6 +29,8 @@ class EvalInfo:
         if node is None:
             raise TypeError
         self.node = node
+        self.image_size = (0,0)
+        self.pixel_size = (0.0, 0.0)
         self.x = 0.0
         self.y = 0.0
 
@@ -51,6 +53,8 @@ class EvalInfo:
         p = self.node.params[name]
         if p.binding:
             info = EvalInfo(p.binding)
+            info.image_size = self.image_size
+            info.pixel_size = self.pixel_size
             info.x, info.y = rotate_origin((x * p.binding.scaling[0], y * p.binding.scaling[1]),
                                            (0.5, 0.5),
                                            p.binding.rotation)
