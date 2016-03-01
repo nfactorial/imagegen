@@ -7,6 +7,15 @@ the output image. Image graphs are defined within a JSON formatted file.
 
 The main goal of the project is mostly to practice Python with a relatively fun project.
 
+## Build status
+
+| [Linux][lin-link] |
+| :---------------: |
+| ![lin-badge]      |
+
+[lin-badge]: https://travis-ci.org/nfactorial/imagegen.svg?branch=master "Travis build status"
+[lin-link]:  https://travis-ci.org/nfactorial/imagegen "Travis build status"
+
 USAGE
 =====
 Imagegen currently require PIL or Pillow to be installed (https://pillow.readthedocs.org/en/3.0.0/installation.html).
