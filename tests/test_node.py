@@ -32,7 +32,7 @@ TEST_INPUT = [
 def test_evaluation(eval_info):
     pass
 
-TEST_DEFINITION = NodeDefinition('NodeTest', test_evaluation, TEST_INPUT, TEST_OUTPUT, None)
+TEST_DEFINITION = NodeDefinition('NodeTest', test_evaluation, TEST_INPUT, TEST_OUTPUT, None, None)
 
 
 class TestNode(unittest.TestCase):
