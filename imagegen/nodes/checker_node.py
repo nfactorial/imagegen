@@ -29,6 +29,9 @@ CHECKERBOARD_INPUT = [
                         default_value=Color(red=1.0, green=1.0, blue=1.0, alpha=1.0))
 ]
 
+CHECKERBOARD_GPU_PROGRAM = 'vec4 evaluate_checkerboard(vec4 color_a, vec4 color_b) {'   \
+                           '}'
+
 
 def evaluate_checkerboard(eval_info):
     """
@@ -48,4 +51,5 @@ def evaluate_checkerboard(eval_info):
     return eval_info.evaluate('color_a', (x - 0.5) / 0.5, (y - 0.5) / 0.5)
 
 register_node('checker', evaluate_checkerboard, CHECKERBOARD_INPUT, output='color',
+              gpu_program=CHECKERBOARD_GPU_PROGRAM,
               description='Creates a pattern of squares using two colors.')

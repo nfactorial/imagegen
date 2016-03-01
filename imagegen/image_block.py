@@ -92,7 +92,7 @@ class ImageBlock:
     def evaluate_pixel(self, pixel, info, sampler):
         """
         Computes the color of a pixel within the image block.
-        :param pixel: Coordinates of the pixel being evaluated.
+        :param pixel: Tuple containing x, y coordinates of the pixel being evaluated.
         :param info: EvalInfo object describing the sample being evaluated.
         :param sampler: The sampler to be used when computing the pixel color.
         :return: The color of the specified pixel.

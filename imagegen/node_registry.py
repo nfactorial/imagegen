@@ -23,6 +23,7 @@ NodeDefinition = namedtuple('NodeDefinition', ['name',
                                                'evaluate',
                                                'input',
                                                'output',
+                                               'gpu_program',
                                                'description'])
 
 
@@ -37,7 +38,7 @@ class NodeExistsError(Exception):
     def __init__(self, name):
         """
         Prepares the exception for use by the application.
-        :param name: Name of the node that caused the exception to be raised.
+        :param name: String containing the node that caused the exception to be raised.
         """
         super(NodeExistsError, self).__init__(name)
         self.name = name
@@ -50,25 +51,26 @@ class NodeExistsError(Exception):
         return 'The node \'' + self.name + '\' already exists within the registry.'
 
 
-def register_node(name, eval_func, input_args, output=None, description=None):
+def register_node(name, eval_func, input_args, gpu_program=None, output=None, description=None):
     """
     Attempts to register a new node with the node registry.
-    :param name: Name of the node being registered.
+    :param name: String containing the name of the node being registered.
     :param eval_func: The function to be invoked when the node contents should be evaluated.
-    :param input_args: The parameters the node requires to compute its result.
-    :param output: The parameter the node will compute.
-    :param description: Descriptive text for the node.
+    :param input_args: Array of ParameterDefinition's describing the nodes input.
+    :param gpu_program: String containing the shader code that implements this node.
+    :param output: String containing the output type the node will return.
+    :param description: String containing the descriptive text for the node.
     """
     if name in NODE_REGISTRY:
         raise NodeExistsError(name)
 
-    NODE_REGISTRY[name] = NodeDefinition(name, eval_func, input_args, output, description)
+    NODE_REGISTRY[name] = NodeDefinition(name, eval_func, input_args, output, gpu_program, description)
 
 
 def unregister_node(name):
     """
     Removes a registered node from the applications registry.
-    :param name: Name of the node type to be removed.
+    :param name: String containing the node type to be removed.
     """
     if name in NODE_REGISTRY:
         del NODE_REGISTRY[name]
@@ -77,9 +79,9 @@ def unregister_node(name):
 def create_node(name, node_type):
     """
     Create an instance of a node associated with the specified name.
-    :param name: The name to be associated with the newly created node.
-    :param node_type: The type of node to be instantiated.
-    :return: The newly created node of the specified type.
+    :param name: String containing the name name to be associated with created node.
+    :param node_type: String containing the type of node to be instantiated.
+    :return: Node instance of the specified type.
     """
     if node_type in NODE_REGISTRY:
         return Node(name, NODE_REGISTRY[node_type])

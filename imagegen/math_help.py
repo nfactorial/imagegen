@@ -22,7 +22,7 @@ def lerp(a, b, t):
     Performs a linear interpolation between two values.
     :param a: The first value in the interpolation.
     :param b: The second value in the interpolation.
-    :param t: A value between 0 and 1 which defines the position of the interpolated result.
+    :param t: Scalar value between 0 and 1 which defines the position of the interpolated result.
     :return: The result of the linear interpolation.
     """
     return a + t * (b - a)

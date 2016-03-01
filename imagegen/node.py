@@ -46,7 +46,7 @@ class Node:
     @property
     def output(self):
         """
-        :return: The output type that is produced by this nodes evaluation.
+        :return: String containing the output type that is return by the nodes evaluation.
         """
         return self.definition.output
 

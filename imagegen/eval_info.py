@@ -35,15 +35,15 @@ class EvalInfo:
     @property
     def pos(self):
         """
-        Returns the x and y position being evaluated as a tuple.
-        :return: The x and y position being evaluated, as a tuple.
+        Returns Tuple containing x, y position being evaluated.
+        :return: Tuple x, y position being evaluated.
         """
         return self.x, self.y
 
     def evaluate(self, name, x, y):
         """
         Evaluates the value of a parameter at the specified sample position.
-        :param name: Name of the parameter to be evaluated.
+        :param name: String containing the name of the parameter to be evaluated.
         :param x: Position of the sample to be evaluated along the horizontal axis.
         :param y: Position of the sample to be evaluated along the vertical axis.
         :return: The computed result of the parameter.

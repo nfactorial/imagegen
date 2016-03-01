@@ -30,6 +30,10 @@ BLEND_INPUT = [
                         default_value=0.5)
 ]
 
+BLEND_GPU_PROGRAM = 'vec4 evaluate_blend(vec4 color_a, vec4 color_b, t) {'  \
+                    '    return lerp(color_a, color_b, t);'                 \
+                    '}'
+
 
 def evaluate_blend(eval_info):
     """
