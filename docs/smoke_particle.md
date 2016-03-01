@@ -3,7 +3,7 @@ Introduction
 This article describes how to use imagegen to produce an image that could be used as a texture for a particle effect
 in a game engine. The resulting texture image will look as follows:
 
-![Smoke Particle Example](images/smoke_particle1)
+![Smoke Particle Example](images/smoke_particle1.png)
 
 Creating JSON
 =============
