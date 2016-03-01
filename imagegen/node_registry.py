@@ -85,5 +85,4 @@ def create_node(name, node_type):
     """
     if node_type in NODE_REGISTRY:
         return Node(name, NODE_REGISTRY[node_type])
-    raise TypeError('The specified node type \'' + node_type +
-                    '\' could not be found within imagegen.')
+    raise TypeError('The specified node type \'%s\' could not be found within imagegen.' % node_type)

@@ -72,6 +72,5 @@ class Node:
                 if p['name'] in self.params:
                     self.params[p['name']].read_json(p)
                 else:
-                    print('Warn: Parameter \'' + p['name'] +
-                          '\' does not exist in node type \'' +
-                          self.definition.name + '\'.')
+                    print('Warn: Parameter \'%s\' does not exist in node type \'%s\'.' %
+                          (p['name'], self.definition.name))

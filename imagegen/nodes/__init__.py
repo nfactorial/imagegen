@@ -14,4 +14,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-__all__ = ['blend_node', 'checker_node', 'circle_node', 'multiply_node', 'noise_node']
+__all__ = ['blend_node',
+           'checker_node',
+           'circle_node',
+           'multiply_node',
+           'noise_node',
+           'turbulence_node']
