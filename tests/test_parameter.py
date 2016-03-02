@@ -16,8 +16,6 @@ limitations under the License.
 
 import unittest
 
-from imagegen.node import Node
-from imagegen.node_registry import NodeDefinition
 from imagegen.parameter import ParameterDefinition
 
 TEST_NAME = 'TestParameter'
@@ -26,8 +24,8 @@ TEST_INVALID_TYPE = 'invalid_type'
 
 class TestParameterDefinition(unittest.TestCase):
     def test_invalid_type(self):
-        self.assertRaises(TypeError, ParameterDefinition(TEST_NAME,
-                                                         param_type=TEST_INVALID_TYPE))
+        self.assertRaises(TypeError, ParameterDefinition, TEST_NAME)
+        self.assertRaises(TypeError, ParameterDefinition, TEST_NAME, param_type=TEST_INVALID_TYPE)
 
     def test_integer(self):
         pass
