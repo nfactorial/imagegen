@@ -23,30 +23,6 @@ TEST_INVALID_TYPE = 'invalid_type'
 TEST_PARAMETER_NAME = 'TestParameter'
 
 
-class TestParameterDefinition(unittest.TestCase):
-    def test_invalid_type(self):
-        self.assertRaises(TypeError, ParameterDefinition, TEST_DEFINITION_NAME)
-        self.assertRaises(TypeError, ParameterDefinition, TEST_DEFINITION_NAME, param_type=TEST_INVALID_TYPE)
-
-    def test_integer(self):
-        try:
-            ParameterDefinition(TEST_DEFINITION_NAME, param_type="int")
-        except TypeError:
-            self.fail('Parameter raised exception unexpectedly for integer type.')
-
-    def test_scalar(self):
-        try:
-            ParameterDefinition(TEST_DEFINITION_NAME, param_type="scalar")
-        except TypeError:
-            self.fail('Parameter raised exception unexpectedly for scalar type.')
-
-    def test_color(self):
-        try:
-            ParameterDefinition(TEST_DEFINITION_NAME, param_type="color")
-        except TypeError:
-            self.fail('Parameter raised exception unexpectedly for color type.')
-
-
 class TestInvalidParameter(unittest.TestCase):
     def test_construction(self):
         """
@@ -59,15 +35,43 @@ class TestInvalidParameter(unittest.TestCase):
         self.assertRaises(TypeError, ParameterDefinition, TEST_DEFINITION_NAME, param_type=TEST_INVALID_TYPE)
 
 
-class TestParameter(unittest.TestCase):
+class TestParameterScalar(unittest.TestCase):
     def setUp(self):
         try:
             self.definition = ParameterDefinition(TEST_DEFINITION_NAME, param_type='scalar')
         except TypeError:
             self.fail('Unexpected exception when creating parameter definition for scalar type.')
-        self.parameter = None
+        self.parameter = Parameter(self.definition)
 
     def test_no_range(self):
-        self.parameter = Parameter(self.definition)
         self.assertEqual(TEST_DEFINITION_NAME, self.parameter.name)
+        self.assertEqual('scalar', self.parameter.type)
+        self.assertFalse(self.parameter.has_range)
+
+
+class TestParameterInt(unittest.TestCase):
+    def setUp(self):
+        try:
+            self.definition = ParameterDefinition(TEST_DEFINITION_NAME, param_type='int')
+        except TypeError:
+            self.fail('Unexpected exception when creating parameter definition for integer type.')
+        self.parameter = Parameter(self.definition)
+
+    def test_no_range(self):
+        self.assertEqual(TEST_DEFINITION_NAME, self.parameter.name)
+        self.assertEqual('int', self.parameter.type)
+        self.assertFalse(self.parameter.has_range)
+
+
+class TestParameterColor(unittest.TestCase):
+    def setUp(self):
+        try:
+            self.definition = ParameterDefinition(TEST_DEFINITION_NAME, param_type='color')
+        except TypeError:
+            self.fail('Unexpected exception when creating parameter definition for color type.')
+        self.parameter = Parameter(self.definition)
+
+    def test_no_range(self):
+        self.assertEqual(TEST_DEFINITION_NAME, self.parameter.name)
+        self.assertEqual('color', self.parameter.type)
         self.assertFalse(self.parameter.has_range)

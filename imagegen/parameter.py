@@ -106,6 +106,14 @@ class Parameter:
         self.binding = None
 
     @property
+    def type(self):
+        """
+        Retrieves a string containing the parameter type asssociated with this parameter.
+        :return: String containing the type associated with this parameter.
+        """
+        return self.definition.param_type
+
+    @property
     def minimum(self):
         """
         Retrieves the minimum value this parameter may be assigned.
