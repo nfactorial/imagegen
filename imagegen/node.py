@@ -15,6 +15,7 @@ limitations under the License.
 """
 
 from .parameter import Parameter
+from .output_image import OutputImage
 
 
 class Node:
@@ -33,7 +34,9 @@ class Node:
         self.rotation = 0.0
         self.origin = (0.5, 0.5)
         self.scaling = (1.0, 1.0)
+        self.size = (256, 256)
         self.definition = definition
+        self.image = None
         self.params = {p.name: Parameter(p) for p in definition.input}
 
     @property
@@ -74,3 +77,13 @@ class Node:
                 else:
                     print('Warn: Parameter \'%s\' does not exist in node type \'%s\'.' %
                           (p['name'], self.definition.name))
+
+    def generateImage(self):
+        """
+        If the image for this node is dirty, this method generates the output content.
+        :return: The OutputImage object that is associated with this node.
+        """
+        if self.isDirty:
+            self.image = OutputImage(self.size)
+            # Generate pixel content for this node.
+        return self.image

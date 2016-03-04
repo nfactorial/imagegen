@@ -67,6 +67,8 @@ class ParameterDefinition:
     class itself is used to represent an actual instance of a parameter.
     """
     def __init__(self, name, param_type=None, minimum=None, maximum=None, default_value=None):
+        if name is None:
+            raise ValueError
         if param_type not in JSON_PARAM_READERS:
             raise TypeError
         self.read_json = JSON_PARAM_READERS[param_type]

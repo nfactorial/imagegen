@@ -52,6 +52,8 @@ class EvalInfo:
         """
         p = self.node.params[name]
         if p.binding:
+            if p.binding.isDirty:
+                p.binding.generateImage()
             info = EvalInfo(p.binding)
             info.image_size = self.image_size
             info.pixel_size = self.pixel_size
