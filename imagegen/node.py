@@ -15,7 +15,21 @@ limitations under the License.
 """
 
 from .parameter import Parameter
+from .eval_info import EvalInfo
+from .evaluate import evaluate_image
 from .output_image import OutputImage
+from .sampler_base import SamplerBase
+from .stochastic_sampler import StochasticSampler
+
+# Image size if not specified within the definition file
+DEFAULT_WIDTH = 256
+DEFAULT_HEIGHT = 256
+DEFAULT_SAMPLER = 'default'
+SAMPLER_TABLE = {
+    'default': (SamplerBase, 1),
+    'nearest': (SamplerBase, 1),
+    'stochastic': (StochasticSampler, 4)
+}
 
 
 class Node:
@@ -34,7 +48,9 @@ class Node:
         self.rotation = 0.0
         self.origin = (0.5, 0.5)
         self.scaling = (1.0, 1.0)
-        self.size = (256, 256)
+        self.size = (DEFAULT_WIDTH, DEFAULT_HEIGHT)
+        self.sampler = DEFAULT_SAMPLER
+        self.samples = 1
         self.definition = definition
         self.image = None
         self.params = {p.name: Parameter(p) for p in definition.input}
@@ -58,6 +74,8 @@ class Node:
         Reads all properties for the node that have been defined within the supplied JSON data.
         :param desc: JSON data describing the nodes properties.
         """
+        width = DEFAULT_WIDTH
+        height = DEFAULT_HEIGHT
         if 'origin' in desc:
             self.origin = (desc['origin'][0], desc['origin'][1])
         else:
@@ -70,6 +88,12 @@ class Node:
             self.scaling = (desc['scaling'][0], desc['scaling'][1])
         else:
             self.scaling = (1.0, 1.0)
+        if 'width' in desc:
+            width = desc['width']
+        if 'height' in desc:
+            height = desc['height']
+        if 'sampler' in desc:
+            self.sampler = desc['sampler']
         if 'params' in desc:
             for p in desc['params']:
                 if p['name'] in self.params:
@@ -77,8 +101,15 @@ class Node:
                 else:
                     print('Warn: Parameter \'%s\' does not exist in node type \'%s\'.' %
                           (p['name'], self.definition.name))
+        self.size = (width, height)
+        if self.sampler not in SAMPLER_TABLE:
+            print( 'Unknown sampler type %s specified in node %s, using default.' % (
+                self.sampler, self.name
+            ))
+            self.sampler = DEFAULT_SAMPLER
+        self.samples = SAMPLER_TABLE[self.sampler][1]
 
-    def generateImage(self):
+    def generate_image(self):
         """
         If the image for this node is dirty, this method generates the output content.
         :return: The OutputImage object that is associated with this node.
@@ -86,4 +117,9 @@ class Node:
         if self.isDirty:
             self.image = OutputImage(self.size)
             # Generate pixel content for this node.
+            sampler = SAMPLER_TABLE[self.sampler](self.samples, self.samples, (1.0, 1.0))
+            eval_info = EvalInfo(self)
+            eval_info.image_size = self.size
+            eval_info.pixel_size = (1.0 / self.size[0], 1.0 / self.size[1])
+            evaluate_image(self.image, eval_info, sampler)
         return self.image

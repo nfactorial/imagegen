@@ -85,3 +85,8 @@ class OutputImage:
                                                 min(block_size, self.size[1] - y)))
                 y += block_size
             x += block_size
+
+    def next_pixel(self):
+        for y in range(self.size[1]):
+            for x in range(self.size[0]):
+                yield x, y
